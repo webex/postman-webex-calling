@@ -1152,7 +1152,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"callId\": \"{{_callId}}\",\n  \"destination\": \"{{PARK_DESTINATION}}\"\"\n}",
+							"raw": "{\n  \"callId\": \"{{_callId}}\",\n  \"destination\": \"{{PARK_DESTINATION}}\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
