@@ -5,7 +5,7 @@ To excercise these API simply do the following
 * [Install Postman](https://www.postman.com/downloads/)
 * [Import the collection](#import-the-collection)
 * [Configure the environment](#configure-the-environment)
-* [Excersise the requests](#exercise-the-resquests)
+* [Exercise the requests](#exercise-the-resquests)
 
 ## Import the collection
 1) Clone this repo or simply download the [postman collection](./webex-calling-calls-api.json) to your local disk.
@@ -39,7 +39,7 @@ If you are familar with Postman's environments, its worth noting that you don't 
 
 Click the update button and you are ready to try the requests.
 
-## Excersise the requests
+## Exercise the requests
 
 The collection consists of five folders that exercise the following use cases:
 
@@ -47,7 +47,9 @@ The collection consists of five folders that exercise the following use cases:
 2) Answer an inbound call (UserA calls apiUser), intiatate another call from the same user (apiUser calls UserB) and perform a Consult Transfer (i.e. apiUser transfers the call to connect UserA with UserB)
 3) Answer an inbound call (UserA calls apiUser) and blind transfer (Divert) the call to apiUser's voicemail.
 4) Answer an inbound call, park the call on another destination and retrieve the call back to apiUser.
-5) Get Call History (i.e. missed calls, placed calls and received calls).
+5) Answer an inbound call, start recording, the pause recording, resume recording and stop call recording and then end the call.
+**Note:** The apiUser must be enabled for Call Recording in Control Hub and should have "On Demand" Call Recording option selected. Also, the apiUser information must be provisioned the Dubber account (i.e. user and dub point should be created prior to using these APIs)
+6) Get Call History (i.e. missed calls, placed calls and received calls).
 
 Each folder is standalone, but the requests are meant to be run one after the other.
 
