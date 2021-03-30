@@ -8,7 +8,7 @@ To excercise these API simply do the following
 * [Excersise the requests](#exercise-the-resquests)
 
 ## Import the collection
-1) Clone this repo or simply download the [postman collection](./webex-calling-calls.json) to your local disk.
+1) Clone this repo or simply download the [postman collection](./webex-calling-calls-api.json) to your local disk.
 2) From within Postman , begin by clicking the "Import" button, and choosing the "Choose Files" button:
 
   ![Postman Import](./images/import.png)
