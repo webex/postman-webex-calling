@@ -1,8 +1,8 @@
 {
 	"info": {
-		"_postman_id": "96dc5539-f27a-48e2-8402-ba5268bd58e8",
+		"_postman_id": "cda01864-ad4d-4de3-b243-f54afa27b62a",
 		"name": "Webex Calling Calls API",
-		"description": "These tests excersise the /telephonycalls Webex Calling API and validate the results.  They are designed to provide developers who are unfamilar with the Calling API with a set of examples to understand the basic concepts of how to use them.\n\n1) Create an outbound (Click to Dial) Call and verify it is gettable and perform a basic Hold and Resume operation on the call.\n2) Answer an inbound call (UserA calls apiUser), intiatate another call from the same user (apiUser calls UserB) and perform a Consult Transfer (i.e. apiUser transfers the call to connect UserA with UserB)\n3) Answer an inbound call (UserA calls apiUser) and blind transfer (Divert) the call to apiUser's voicemail.\n4) Answer an inbound call, park the call on another destination and retrieve the call back to apiUser.\n5) Get Call History (i.e. missed calls, placed calls and received calls).\n\nBefore running these tests the following environment variables must be set:\n* WEBEX_TOKEN -- an OAuth token for a user configured for calling in the test environment. These tests require a token with all the calling scopes (spark:calls_read and spark:calls_write).  To get started quickly, developers can copy their temporary token from the [Webex For Developers Gettings Started Guide](https://developer.webex.com/docs/api/getting-started#accounts-and-authentication). \n* WEBEX_API_URL -- the URL of the meetings API under test, generally the default value of \"https://webexapis.com/v1/\" does not need to be changed\n* DESTINATION -- The destination to be dialed. Destination can be extensions, PSTN numbers, FAC codes or SIP URI. The destination can be digits or a URI. Some examples for destination include: 1234, 2223334444, +12223334444, *73, tel:+12223334444, user@company.domain, sip:user@company.domain\n* TRANSFER_DESTINATION -- The destination to be dialed. This is used to make a second call from the api user in order to transfer the call.\n* PARK_DESTINATION  -- The destination to park the call.\n",
+		"description": "These tests exercise the /telephonycalls Webex Calling API and validate the results.  They are designed to provide developers who are unfamilar with the Calling API with a set of examples to understand the basic concepts of how to use them.\n\n1) Create an outbound (Click to Dial) Call and verify it is gettable and perform a basic Hold and Resume operation on the call.\n2) Answer an inbound call (UserA calls apiUser), intiatate another call from the same user (apiUser calls UserB) and perform a Consult Transfer (i.e. apiUser transfers the call to connect UserA with UserB)\n3) Answer an inbound call (UserA calls apiUser) and blind transfer (Divert) the call to apiUser's voicemail.\n4) Answer an inbound call, park the call on another destination and retrieve the call back to apiUser.\n5) Get Call History (i.e. missed calls, placed calls and received calls).\n6) Voice Messages (execute the voice messages APIs)\n\nBefore running these tests the following environment variables must be set:\n* WEBEX_TOKEN -- an OAuth token for a user configured for calling in the test environment. These tests require a token with all the calling scopes (spark:calls_read and spark:calls_write).  To get started quickly, developers can copy their temporary token from the [Webex For Developers Gettings Started Guide](https://developer.webex.com/docs/api/getting-started#accounts-and-authentication). \n* WEBEX_API_URL -- the URL of the meetings API under test, generally the default value of \"https://webexapis.com/v1/\" does not need to be changed\n* DESTINATION -- The destination to be dialed. Destination can be extensions, PSTN numbers, FAC codes or SIP URI. The destination can be digits or a URI. Some examples for destination include: 1234, 2223334444, +12223334444, *73, tel:+12223334444, user@company.domain, sip:user@company.domain\n* TRANSFER_DESTINATION -- The destination to be dialed. This is used to make a second call from the api user in order to transfer the call.\n* PARK_DESTINATION  -- The destination to park the call.\n* VOICE_MESSAGE_ID - the voice message Id.  Used by the Voice Message APIs that require a message Id to perform the action.",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -15,7 +15,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "4f0fd7c1-6399-4669-b1e9-dab2bbb48ab1",
 								"exec": [
 									"pm.test(\"Status code is 201\", function () {",
 									"    pm.response.to.have.status(201);",
@@ -66,7 +65,6 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "38fdd2a5-7510-4757-a1c1-185db051b111",
 								"exec": [
 									""
 								],
@@ -76,7 +74,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "2c089f91-cc44-42b2-8438-a402e9c242fc",
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
@@ -124,7 +121,6 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "669f029c-dd8b-4f97-87c2-d4f6aa4253c4",
 								"exec": [
 									""
 								],
@@ -134,7 +130,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "a9e2f02e-c8ff-4dee-a2a3-64d31719348a",
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
@@ -186,7 +181,6 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "c6867635-17b1-4dee-b3ba-ec39b30818fb",
 								"exec": [
 									""
 								],
@@ -196,7 +190,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "c9c4b8c1-9078-4952-b14d-7d04abc4f3b0",
 								"exec": [
 									"pm.test(\"Status code is 204\", function () {",
 									"    pm.response.to.have.status(204);",
@@ -244,7 +237,6 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "2f8a0d39-b8d4-4b4a-bf07-53149b0d220a",
 								"exec": [
 									""
 								],
@@ -254,7 +246,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "c45ef5bd-3cb6-4636-aa16-fcaf9885d84a",
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
@@ -306,7 +297,6 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "6e39acd3-0a68-4083-b854-401f954679ca",
 								"exec": [
 									""
 								],
@@ -316,7 +306,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "3c413702-d96f-44eb-9319-a59db88ce9d7",
 								"exec": [
 									"pm.test(\"Status code is 204\", function () {",
 									"    pm.response.to.have.status(204);",
@@ -364,7 +353,6 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "eff42f53-dfff-4b81-8a8b-507175670fab",
 								"exec": [
 									""
 								],
@@ -374,7 +362,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "0f35adcc-16c1-45af-9b45-8cf59a870e2b",
 								"exec": [
 									"pm.test(\"Status code is 204\", function () {",
 									"    pm.response.to.have.status(204);",
@@ -422,7 +409,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "743ee3bb-24e8-464c-8d24-d32ddc474dda",
 								"exec": [
 									""
 								],
@@ -432,7 +418,6 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "c0ebf048-370b-4543-bda0-76f6a842e906",
 								"exec": [
 									"function cleanup() {",
 									"    const clean = _.keys(pm.collectionVariables.toObject());",
@@ -470,8 +455,7 @@
 					},
 					"response": []
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		},
 		{
 			"name": "Answer Inbound Call and Transfer",
@@ -482,7 +466,6 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "8f1b234e-f38c-4375-bef0-1c1704f96e51",
 								"exec": [
 									""
 								],
@@ -492,7 +475,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "b25fea86-5176-4985-a534-4f9f161564b9",
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
@@ -548,7 +530,6 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "8f94e085-f7da-4c85-aeaa-2e58e3e8788a",
 								"exec": [
 									""
 								],
@@ -558,7 +539,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "1f72931c-d766-42a2-87fc-cd11b3d91e10",
 								"exec": [
 									"pm.test(\"Status code is 204\", function () {",
 									"    pm.response.to.have.status(204);",
@@ -606,7 +586,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "f2b1653c-92bc-45c6-9ed4-e1f3d55e1f70",
 								"exec": [
 									"pm.test(\"Status code is 201\", function () {",
 									"    pm.response.to.have.status(201);",
@@ -657,7 +636,6 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "4d22d250-82c9-4ba9-ae50-4f608d965ab5",
 								"exec": [
 									""
 								],
@@ -667,7 +645,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "c34da8ab-81fb-45cf-9be3-e31953a875c2",
 								"exec": [
 									"pm.test(\"Status code is 204\", function () {",
 									"    pm.response.to.have.status(204);",
@@ -715,7 +692,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "eb4e7d5f-66fe-43d1-a774-68a931c068eb",
 								"exec": [
 									"pm.test(\"Status code is 204\", function () {",
 									"    pm.response.to.have.status(204);",
@@ -763,7 +739,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "3a19442c-9e37-4b1c-8f21-a57e40078a61",
 								"exec": [
 									""
 								],
@@ -773,7 +748,6 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "14d9639e-a84a-4162-b41f-c73adf2eab88",
 								"exec": [
 									"function cleanup() {",
 									"    const clean = _.keys(pm.collectionVariables.toObject());",
@@ -811,8 +785,7 @@
 					},
 					"response": []
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		},
 		{
 			"name": "Blind Transfer To Voicemail",
@@ -823,7 +796,6 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "5f4fc97f-f476-449e-a1b7-e6e0a74fd21e",
 								"exec": [
 									""
 								],
@@ -833,7 +805,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "6e654737-c6fa-4fb4-905a-553f74f5aac1",
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
@@ -887,7 +858,6 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "7ad0e616-beea-4043-b23c-6ef072af4563",
 								"exec": [
 									""
 								],
@@ -897,7 +867,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "b4704fe6-28d8-4f2d-9606-3ae45d9b07aa",
 								"exec": [
 									"pm.test(\"Status code is 204\", function () {",
 									"    pm.response.to.have.status(204);",
@@ -945,7 +914,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "7d35c917-4e05-4654-a134-fbcb7ccf07db",
 								"exec": [
 									""
 								],
@@ -955,7 +923,6 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "0f6ea361-6d8c-4296-88a5-6e60bc8599e9",
 								"exec": [
 									"function cleanup() {",
 									"    const clean = _.keys(pm.collectionVariables.toObject());",
@@ -993,8 +960,7 @@
 					},
 					"response": []
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		},
 		{
 			"name": "Park and Retrieve a call",
@@ -1005,7 +971,6 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "580d59ff-f577-4d57-8f73-3d5b1181aef7",
 								"exec": [
 									""
 								],
@@ -1015,7 +980,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "7ee3ec8b-2f26-4447-91e9-e28202dcb8bc",
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
@@ -1069,7 +1033,6 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "6fb5de95-88e0-42d3-9bd3-6e1e31b77052",
 								"exec": [
 									""
 								],
@@ -1079,7 +1042,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "fe4f9bb1-44e5-4c91-bc87-737826aee599",
 								"exec": [
 									"pm.test(\"Status code is 204\", function () {",
 									"    pm.response.to.have.status(204);",
@@ -1127,7 +1089,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "0d5bfcaa-d26d-41e2-ac17-73909407754d",
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
@@ -1178,7 +1139,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "d81c28cc-8b10-4dcd-b287-60c6e77bbcfb",
 								"exec": [
 									"pm.test(\"Status code is 201\", function () {",
 									"    pm.response.to.have.status(201);",
@@ -1229,7 +1189,6 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "f8622416-dd09-41ed-8c39-1587076090ea",
 								"exec": [
 									""
 								],
@@ -1239,7 +1198,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "d33c5bcd-acb0-41f9-b7db-a50fac819482",
 								"exec": [
 									"pm.test(\"Status code is 204\", function () {",
 									"    pm.response.to.have.status(204);",
@@ -1287,7 +1245,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "b45891b0-90d3-4a58-a963-56e1362d95f9",
 								"exec": [
 									""
 								],
@@ -1297,7 +1254,6 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "3d58c086-f3ec-4eef-9146-4a937b323e1f",
 								"exec": [
 									"function cleanup() {",
 									"    const clean = _.keys(pm.collectionVariables.toObject());",
@@ -1335,8 +1291,7 @@
 					},
 					"response": []
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		},
 		{
 			"name": "Call History",
@@ -1347,7 +1302,6 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "41f966d5-33b6-4fdb-a9f5-12be18f271c6",
 								"exec": [
 									""
 								],
@@ -1357,7 +1311,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "1ed5225b-5ee7-47a2-9241-ac03a135c5f4",
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
@@ -1409,7 +1362,6 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "81db4d24-78df-4e2d-b63d-99eb4cfa1a7b",
 								"exec": [
 									""
 								],
@@ -1419,7 +1371,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "6fe2f7c0-b724-4fa6-ab77-7c9258924c4b",
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
@@ -1477,7 +1428,6 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "68f71a34-ee5b-4226-bc27-b55a25eb7491",
 								"exec": [
 									""
 								],
@@ -1487,7 +1437,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "2814f0bb-ca4e-489b-aa84-78fdc66ffdb7",
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
@@ -1545,7 +1494,6 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "98e13c10-af1a-45f2-9458-8d85d3ddab9b",
 								"exec": [
 									""
 								],
@@ -1555,7 +1503,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "96b6b7ac-ea0b-4e3d-8d1a-fe0a1033668c",
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
@@ -1607,8 +1554,416 @@
 					},
 					"response": []
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
+		},
+		{
+			"name": "Voice Messages",
+			"item": [
+				{
+					"name": "Get Message Summary",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{WEBEX_API_URL}}telephony/voiceMessages/summary",
+							"host": [
+								"{{WEBEX_API_URL}}telephony"
+							],
+							"path": [
+								"voiceMessages",
+								"summary"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get List of Messages",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{WEBEX_API_URL}}telephony/voiceMessages",
+							"host": [
+								"{{WEBEX_API_URL}}telephony"
+							],
+							"path": [
+								"voiceMessages"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Mark a Message as Read",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {",
+									"    pm.response.to.have.status(204);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"messageId\":\"{{VOICE_MESSAGE_ID}}\" \n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{WEBEX_API_URL}}telephony/voiceMessages/markAsRead",
+							"host": [
+								"{{WEBEX_API_URL}}telephony"
+							],
+							"path": [
+								"voiceMessages",
+								"markAsRead"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Mark a Message as Unread",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {",
+									"    pm.response.to.have.status(204);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"messageId\":\"{{VOICE_MESSAGE_ID}}\" \n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{WEBEX_API_URL}}telephony/voiceMessages/markAsUnread",
+							"host": [
+								"{{WEBEX_API_URL}}telephony"
+							],
+							"path": [
+								"voiceMessages",
+								"markAsUnread"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Mark All Messages as Read",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {",
+									"    pm.response.to.have.status(204);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{WEBEX_API_URL}}telephony/voiceMessages/markAsRead",
+							"host": [
+								"{{WEBEX_API_URL}}telephony"
+							],
+							"path": [
+								"voiceMessages",
+								"markAsRead"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Mark All Messages as Unread",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {",
+									"    pm.response.to.have.status(204);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{WEBEX_API_URL}}telephony/voiceMessages/markAsUnread",
+							"host": [
+								"{{WEBEX_API_URL}}telephony"
+							],
+							"path": [
+								"voiceMessages",
+								"markAsUnread"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Message",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {",
+									"    pm.response.to.have.status(204);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{WEBEX_API_URL}}telephony/voiceMessages/{{VOICE_MESSAGE_ID}}",
+							"host": [
+								"{{WEBEX_API_URL}}telephony"
+							],
+							"path": [
+								"voiceMessages",
+								"{{VOICE_MESSAGE_ID}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	],
 	"auth": {
@@ -1625,7 +1980,6 @@
 		{
 			"listen": "prerequest",
 			"script": {
-				"id": "e4c80a93-434b-44eb-a2c7-04ab91e2d607",
 				"type": "text/javascript",
 				"exec": [
 					""
@@ -1635,7 +1989,6 @@
 		{
 			"listen": "test",
 			"script": {
-				"id": "6adc1835-c356-4a65-923a-8aadad8a313e",
 				"type": "text/javascript",
 				"exec": [
 					""
@@ -1645,35 +1998,32 @@
 	],
 	"variable": [
 		{
-			"id": "f8465a65-3898-46c5-a72b-8e87b0bd7045",
 			"key": "WEBEX_TOKEN",
-			"value": "Set this to an authorized user's token",
-			"type": "string"
+			"value": "Set this to an authorized user's token"
 		},
 		{
-			"id": "67444dbd-ac12-4844-9b72-85ca3d64a079",
 			"key": "WEBEX_API_URL",
-			"value": "https://webexapis.com/v1/",
-			"type": "string"
+			"value": "https://webexapis.com/v1/"
 		},
 		{
-			"id": "8f9a0853-fcd2-489f-843e-0ead255ef7a6",
 			"key": "DESTINATION",
-			"value": "Set this to the number or address to call",
-			"type": "string"
+			"value": "Set this to the number or address to call"
 		},
 		{
-			"id": "850bb666-0028-4d84-a1b5-96eaab7ca81f",
 			"key": "TRANSFER_DESTINATION",
-			"value": "Set this to the number or address to transfer to",
-			"type": "string"
+			"value": "Set this to the number or address to transfer to"
 		},
 		{
-			"id": "6e7caa5d-874a-49df-b3b9-bcf9c3ae13a5",
 			"key": "PARK_DESTINATION",
-			"value": "The destination where the call needs to be park and retrieved from",
-			"type": "string"
+			"value": "The destination where the call needs to be park and retrieved from"
+		},
+		{
+			"key": "_callId",
+			"value": ""
+		},
+		{
+			"key": "VOICE_MESSAGE_ID",
+			"value": "Set this to the voice message Id"
 		}
-	],
-	"protocolProfileBehavior": {}
+	]
 }
