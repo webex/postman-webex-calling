@@ -17,17 +17,22 @@ When imported succesfully you should see new collection called "Webex Calling Ca
 
 ## Configure the Environment
 
-This collection uses "collection level" variables, which simply means that you can specify an environment that is unique to you, directly from within the collection itself.   
+This collection uses "collection level" variables, which simply means that you can specify an environment that is unique to you, directly from within the collection itself.  For the various WEBEX_TOKEN variables defined, each token is an OAuth token for a user configured for calling in the test environment, and the token requires the calling scopes (spark:calls_read and spark:calls_write).
 
-The environment variables are: 
+The environment variables are:
 
-* WEBEX_TOKEN -- an OAuth token for a user configured for calling in the test environment. These tests require a token with all the calling scopes (spark:calls_read and spark:calls_write).  To get started quickly, developers can copy their temporary token from the [Webex For Developers Gettings Started Guide](https://developer.webex.com/docs/api/getting-started#accounts-and-authentication). 
-* WEBEX_API_URL -- the URL of the API under test, generally the default value of "https://webexapis.com/v1/" does not need to be changed
-* DESTINATION -- The destination to be dialed. Destination can be extensions, PSTN numbers, FAC codes or SIP URI. The destination can be digits or a URI. Some examples for destination include: 1234, 2223334444, +12223334444, *73, tel:+12223334444, user@company.domain, sip:user@company.domain
-* TRANSFER_DESTINATION -- The destination to be dialed. This is used to make a second call from the api user in order to transfer the call.
-* PARK_DESTINATION  -- The destination to park the call.
-* VOICE_MESSAGE_ID  -- The message Id for Voice Message APIs that require an Id for the action.
-  
+* WEBEX_TOKEN -- an OAuth token for a user.  To get started quickly, developers can copy their temporary token from the [Webex For Developers Gettings Started Guide](https://developer.webex.com/docs/api/getting-started#accounts-and-authentication).
+* WEBEX_TOKEN_USER_B -- an OAuth token for another user, User B.  This token is used within the Mute Transfer & Transmit DTMF tests that perform a call action for User B "[for B]".
+* WEBEX_TOKEN_USER_C -- an OAuth token for another user, User C.  This token is used within the Mute Transfer tests that perform a call action for User C "[for C]".
+* WEBEX_TOKEN_ASSISTANT -- an OAuth token for another user, the Assistant.  The user must have the ExecutiveAssistant Service configured with an assigned executive.  This token is used within the Executive Assistant Call Push tests that perform a call action for the Assistant "[for Assistant]".
+* WEBEX_TOKEN_EXECUTIVE -- an OAuth token for another user, the Executive.  The user must have the Executive Service configured with an assigned assistant.  This token is used within the Executive Assistant Call Push tests that perform a call action for the Executive "[for Executive]".
+* WEBEX_API_URL -- the URL of the meetings API under test, generally the default value of "https://webexapis.com/v1/" does not need to be changed
+* DESTINATION -- the destination to be dialed. Destination can be extensions, PSTN numbers, FAC codes or SIP URI. The destination can be digits or a URI. Some examples for destination include: 1234, 2223334444, +12223334444, *73, tel:+12223334444, user@company.domain, sip:user@company.domain
+* TRANSFER_DESTINATION -- the destination to be dialed. This is used to make a second call from the api user in order to transfer the call.
+* EXEC_DESTINATION -- the destination of the Executive to be dialed. This will cause the Assistant to ring and ensure the rest of the scenario proceeds.
+* PARK_DESTINATION  -- the destination to park the call.
+* VOICE_MESSAGE_ID -- the voice message Id.  Used by the Voice Message APIs that require a message Id to perform the action.
+
 To edit the variables first click on the "three dots" associated with the collection and select edit
 
   ![Edit Collection](./images/edit-collection.png)
@@ -36,13 +41,13 @@ Then click on the "Variables" tab and update the values in the "Current Value" c
 
   ![Set Variables](./images/set-variables.png)
 
-If you are familar with Postman's environments, its worth noting that you don't need to explicity set an environment to run these requests, since all the variables are set at the collection level.  If you do have an active environment that sets any of the environment variables used by this collection, the active environment variables will take precedence. 
+If you are familar with Postman's environments, its worth noting that you don't need to explicity set an environment to run these requests, since all the variables are set at the collection level.  If you do have an active environment that sets any of the environment variables used by this collection, the active environment variables will take precedence.
 
 Click the update button and you are ready to try the requests.
 
 ## Exercise the requests
 
-The collection consists of five folders that exercise the following use cases:
+The collection consists of several folders, with each folder exercising one of the following use cases:
 
 1) Create an outbound (Click to Dial) Call and verify it is gettable and perform a basic Hold and Resume operation on the call.
 2) Answer an inbound call (UserA calls apiUser), intiatate another call from the same user (apiUser calls UserB) and perform a Consult Transfer (i.e. apiUser transfers the call to connect UserA with UserB)
@@ -52,6 +57,9 @@ The collection consists of five folders that exercise the following use cases:
 **Note:** The apiUser must be enabled for Call Recording in Control Hub and should have "On Demand" Call Recording option selected. Also, the apiUser information must be provisioned the Dubber account (i.e. user and dub point should be created prior to using these APIs)
 6) Get Call History (i.e. missed calls, placed calls and received calls).
 7) Voice Messages (example usage of the voice message APIs).
+8) Create an outbound call from User A (Click to Dial) to User B, verify the callId can be obtained, and then once a call is established between the two, Mute Transfer (MuteTransfer) the call from User A to User C.
+9) Create an outbound call from User A (Click to Dial) to User B, verify the callId can be obtained, and then once a call is established between the two, Transmit DTMF Digits(TransmitDtmf) **1,234** from User A to User B.
+10) Create an outbound call from User A (Click to Dial) to the Assistant User (please ensure the user is configured to have the ExecutiveAssistant Service set up), verify the callId can be obtained, and then once a call is established between the two, the Executive Assistant User will push the call to the Executive (ExecutiveAssistantCallPush), who will then pick up the call.
 
 Each folder is standalone, but the requests are meant to be run one after the other.
 
