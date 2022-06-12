@@ -1,0 +1,2912 @@
+{
+	"info": {
+		"_postman_id": "6f9ba1b8-7a1a-4f3f-a20d-63cebd731643",
+		"name": "Webex Calling Provisioning APIs",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Webex Calling Organization Settings",
+			"item": [
+				{
+					"name": "Location Settings",
+					"item": [
+						{
+							"name": "Voicemail",
+							"item": [
+								{
+									"name": "Voicemail Transcription",
+									"item": [
+										{
+											"name": "Get Voicemail Transcription Setting",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Expected status code: 200\", function () {",
+															"    pm.response.to.have.status(200);",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "{{WEBEX_API_URL}}/telephony/config/locations/{{LOCATION_ID}}/voicemail",
+													"host": [
+														"{{WEBEX_API_URL}}"
+													],
+													"path": [
+														"telephony",
+														"config",
+														"locations",
+														"{{LOCATION_ID}}",
+														"voicemail"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Modify Voicemail Transcription Setting",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Expected status code: 204\", function () {",
+															"    pm.response.to.have.status(204);",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "PUT",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"voicemailTranscriptionEnabled\": false\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{WEBEX_API_URL}}/telephony/config/locations/{{LOCATION_ID}}/voicemail",
+													"host": [
+														"{{WEBEX_API_URL}}"
+													],
+													"path": [
+														"telephony",
+														"config",
+														"locations",
+														"{{LOCATION_ID}}",
+														"voicemail"
+													]
+												}
+											},
+											"response": []
+										}
+									]
+								},
+								{
+									"name": "Voicemail Groups",
+									"item": [
+										{
+											"name": "List Voicemail Groups",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Expected status code: 200\", function () {",
+															"    pm.response.to.have.status(200);",
+															"});",
+															""
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "{{WEBEX_API_URL}}/telephony/config/voicemailGroups",
+													"host": [
+														"{{WEBEX_API_URL}}"
+													],
+													"path": [
+														"telephony",
+														"config",
+														"voicemailGroups"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Create a Voicemail Group",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Expected status code: 201\", function () {",
+															"    pm.response.to.have.status(201);",
+															"});",
+															"",
+															"let response = pm.response.json();",
+															"pm.collectionVariables.set(\"_voicemailGroupId\", response.id);"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"name\": \"Voicemail Group 1\",\n    \"extension\": \"1273\",\n    \"firstName\": \"John\",\n    \"lastName\": \"Brown\",\n    \"passcode\": \"137356\",\n    \"languageCode\": \"en_us\",\n    \"messageStorage\":{\n        \"storageType\": \"EXTERNAL\",\n        \"externalEmail\": \"user@flex2.cisco.com\"\n    },\n    \"notifications\": {\n        \"enabled\" : true,\n        \"destination\" : \"user@flex2.cisco.com\"\n    },\n    \"faxMessage\" : {\n        \"enabled\": false\n    },\n    \"transferToNumber\": {\n        \"enabled\": false\n    },\n    \"emailCopyOfMessage\": {\n        \"enabled\": false\n    }\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{WEBEX_API_URL}}/telephony/config/locations/{{LOCATION_ID}}/voicemailGroups",
+													"host": [
+														"{{WEBEX_API_URL}}"
+													],
+													"path": [
+														"telephony",
+														"config",
+														"locations",
+														"{{LOCATION_ID}}",
+														"voicemailGroups"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Get Voicemail Group",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Expected status code: 200\", function () {",
+															"    pm.response.to.have.status(200);",
+															"});",
+															""
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "{{WEBEX_API_URL}}/telephony/config/locations/{{LOCATION_ID}}/voicemailGroups/{{_voicemailGroupId}}",
+													"host": [
+														"{{WEBEX_API_URL}}"
+													],
+													"path": [
+														"telephony",
+														"config",
+														"locations",
+														"{{LOCATION_ID}}",
+														"voicemailGroups",
+														"{{_voicemailGroupId}}"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Modify a Voicemail Group",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Expected status code: 204\", function () {",
+															"    pm.response.to.have.status(204);",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "PUT",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"name\": \"Voicemail Group 1\",\n    \"extension\": \"1273\",\n    \"firstName\": \"John\",\n    \"lastName\": \"Brown\",\n    \"passcode\": \"137356\",\n    \"enabled\": true,\n    \"languageCode\": \"en_us\",\n    \"greeting\": \"DEFAULT\",\n    \"greetingDescription\": \"greetings.wav\",\n    \"messageStorage\":{\n        \"storageType\": \"EXTERNAL\",\n        \"externalEmail\": \"user@flex2.cisco.com\"\n    },\n    \"notifications\": {\n        \"enabled\" : true,\n        \"destination\" : \"user@flex2.cisco.com\"\n    },\n    \"faxMessage\" : {\n        \"enabled\": false\n    },\n    \"transferToNumber\": {\n        \"enabled\": false\n    },\n    \"emailCopyOfMessage\": {\n        \"enabled\": false\n    }\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{WEBEX_API_URL}}/telephony/config/locations/{{LOCATION_ID}}/voicemailGroups/{{_voicemailGroupId}}",
+													"host": [
+														"{{WEBEX_API_URL}}"
+													],
+													"path": [
+														"telephony",
+														"config",
+														"locations",
+														"{{LOCATION_ID}}",
+														"voicemailGroups",
+														"{{_voicemailGroupId}}"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Delete a Voicemail Group",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Expected status code: 204\", function () {",
+															"    pm.response.to.have.status(204);",
+															"});",
+															""
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "DELETE",
+												"header": [],
+												"url": {
+													"raw": "{{WEBEX_API_URL}}/telephony/config/locations/{{LOCATION_ID}}/voicemailGroups/{{_voicemailGroupId}}",
+													"host": [
+														"{{WEBEX_API_URL}}"
+													],
+													"path": [
+														"telephony",
+														"config",
+														"locations",
+														"{{LOCATION_ID}}",
+														"voicemailGroups",
+														"{{_voicemailGroupId}}"
+													]
+												}
+											},
+											"response": []
+										}
+									]
+								}
+							]
+						},
+						{
+							"name": "Voice Portal",
+							"item": [
+								{
+									"name": "Get Voice Portal Information",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Expected status code: 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{WEBEX_API_URL}}/telephony/config/locations/{{LOCATION_ID}}/voicePortal",
+											"host": [
+												"{{WEBEX_API_URL}}"
+											],
+											"path": [
+												"telephony",
+												"config",
+												"locations",
+												"{{LOCATION_ID}}",
+												"voicePortal"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Modify Voice Portal Information",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Expected status code: 204\", function () {",
+													"    pm.response.to.have.status(204);",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"name\": \"Voice Portal Name\",\n    \"languageCode\": \"en_us\",\n    \"extension\": 5678,\n    \"firstName\": \"John\",\n    \"lastName\": \"Brown\",\n    \"passcode\": {\n        \"newPasscode\": \"135668\",\n        \"confirmPasscode\": \"135668\"\n    }\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{WEBEX_API_URL}}/telephony/config/locations/{{LOCATION_ID}}/voicePortal",
+											"host": [
+												"{{WEBEX_API_URL}}"
+											],
+											"path": [
+												"telephony",
+												"config",
+												"locations",
+												"{{LOCATION_ID}}",
+												"voicePortal"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Get Passcode Rules",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Expected status code: 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{WEBEX_API_URL}}/telephony/config/locations/{{LOCATION_ID}}/voicePortal/passcodeRules",
+											"host": [
+												"{{WEBEX_API_URL}}"
+											],
+											"path": [
+												"telephony",
+												"config",
+												"locations",
+												"{{LOCATION_ID}}",
+												"voicePortal",
+												"passcodeRules"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Intercept",
+							"item": [
+								{
+									"name": "Get Intercept Details",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Expected status code: 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{WEBEX_API_URL}}/telephony/config/locations/{{LOCATION_ID}}/intercept",
+											"host": [
+												"{{WEBEX_API_URL}}"
+											],
+											"path": [
+												"telephony",
+												"config",
+												"locations",
+												"{{LOCATION_ID}}",
+												"intercept"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Modify Intercept Details",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Expected status code: 204\", function () {",
+													"    pm.response.to.have.status(204);",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"enabled\": true,\n    \"incoming\": {\n        \"type\": \"INTERCEPT_ALL\",\n        \"voicemailEnabled\": false,\n        \"announcements\": {\n            \"greeting\": \"DEFAULT\",\n            \"fileName\": \"audiofile.wav\",\n            \"newNumber\": {\n                \"enabled\": true,\n                \"destination\": \"2147691003\"\n            },\n            \"zeroTransfer\": {\n                \"enabled\": true,\n                \"destination\": \"2147691005\"\n            }\n        }\n    },\n    \"outgoing\": {\n        \"type\": \"ALLOW_LOCAL_ONLY\",\n        \"transferEnabled\": true,\n        \"destination\": \"2147691007\"\n    }\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{WEBEX_API_URL}}/telephony/config/locations/{{LOCATION_ID}}/intercept",
+											"host": [
+												"{{WEBEX_API_URL}}"
+											],
+											"path": [
+												"telephony",
+												"config",
+												"locations",
+												"{{LOCATION_ID}}",
+												"intercept"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Outgoing Permission",
+							"item": [
+								{
+									"name": "Outgoing Call Settings",
+									"item": [
+										{
+											"name": "Get Outgoing Call Settings",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Expected status code: 200\", function () {",
+															"    pm.response.to.have.status(200);",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "{{WEBEX_API_URL}}/telephony/config/locations/{{LOCATION_ID}}/outgoingPermission",
+													"host": [
+														"{{WEBEX_API_URL}}"
+													],
+													"path": [
+														"telephony",
+														"config",
+														"locations",
+														"{{LOCATION_ID}}",
+														"outgoingPermission"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Modify Outgoing Call Settings",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Expected status code: 204\", function () {",
+															"    pm.response.to.have.status(204);",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "PUT",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"callingPermissions\": [\n        {\n            \"callType\": \"INTERNAL_CALL\",\n            \"action\": \"ALLOW\",\n            \"transferEnabled\": true\n        },\n        {\n            \"callType\": \"LOCAL\",\n            \"action\": \"ALLOW\",\n            \"transferEnabled\": true\n        }\n    ]\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{WEBEX_API_URL}}/telephony/config/locations/{{LOCATION_ID}}/outgoingPermission",
+													"host": [
+														"{{WEBEX_API_URL}}"
+													],
+													"path": [
+														"telephony",
+														"config",
+														"locations",
+														"{{LOCATION_ID}}",
+														"outgoingPermission"
+													]
+												}
+											},
+											"response": []
+										}
+									]
+								},
+								{
+									"name": "Access Codes",
+									"item": [
+										{
+											"name": "Get Access Codes",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Expected status code: 200\", function () {",
+															"    pm.response.to.have.status(200);",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "{{WEBEX_API_URL}}/telephony/config/locations/{{LOCATION_ID}}/outgoingPermission/accessCodes",
+													"host": [
+														"{{WEBEX_API_URL}}"
+													],
+													"path": [
+														"telephony",
+														"config",
+														"locations",
+														"{{LOCATION_ID}}",
+														"outgoingPermission",
+														"accessCodes"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Add Access Codes",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Expected status code: 201\", function () {",
+															"    pm.response.to.have.status(201);",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"accessCodes\": [\n        {\n            \"code\": \"1357\",\n            \"description\": \"Main Access Code\"\n        },\n        {\n            \"code\": \"2468\",\n            \"description\": \"Alternate Access Code\"\n        }]\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{WEBEX_API_URL}}/telephony/config/locations/{{LOCATION_ID}}/outgoingPermission/accessCodes",
+													"host": [
+														"{{WEBEX_API_URL}}"
+													],
+													"path": [
+														"telephony",
+														"config",
+														"locations",
+														"{{LOCATION_ID}}",
+														"outgoingPermission",
+														"accessCodes"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Delete Access Codes",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Expected status code: 204\", function () {",
+															"    pm.response.to.have.status(204);",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "PUT",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"deleteCodes\" : [\n        \"1357\",\n        \"2468\"\n    ]\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{WEBEX_API_URL}}/telephony/config/locations/{{LOCATION_ID}}/outgoingPermission/accessCodes",
+													"host": [
+														"{{WEBEX_API_URL}}"
+													],
+													"path": [
+														"telephony",
+														"config",
+														"locations",
+														"{{LOCATION_ID}}",
+														"outgoingPermission",
+														"accessCodes"
+													]
+												}
+											},
+											"response": []
+										}
+									]
+								},
+								{
+									"name": "Auto Transfer Numbers",
+									"item": [
+										{
+											"name": "Get Auto Transfer Numbers",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Expected status code: 200\", function () {",
+															"    pm.response.to.have.status(200);",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "{{WEBEX_API_URL}}/telephony/config/locations/{{LOCATION_ID}}/outgoingPermission/autoTransferNumbers",
+													"host": [
+														"{{WEBEX_API_URL}}"
+													],
+													"path": [
+														"telephony",
+														"config",
+														"locations",
+														"{{LOCATION_ID}}",
+														"outgoingPermission",
+														"autoTransferNumbers"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Modify Auto Transfer Numbers",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Expected status code: 204\", function () {",
+															"    pm.response.to.have.status(204);",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "PUT",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"autoTransferNumber1\": \"1234456789\",\n    \"autoTransferNumber2\": \"2234567891\",\n    \"autoTransferNumber3\": \"3234567891\"\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{WEBEX_API_URL}}/telephony/config/locations/{{LOCATION_ID}}/outgoingPermission/autoTransferNumbers",
+													"host": [
+														"{{WEBEX_API_URL}}"
+													],
+													"path": [
+														"telephony",
+														"config",
+														"locations",
+														"{{LOCATION_ID}}",
+														"outgoingPermission",
+														"autoTransferNumbers"
+													]
+												}
+											},
+											"response": []
+										}
+									]
+								}
+							]
+						},
+						{
+							"name": "Music On Hold",
+							"item": [
+								{
+									"name": "Get Music On Hold Settings",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Expected status code: 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{WEBEX_API_URL}}/telephony/config/locations/{{LOCATION_ID}}/musicOnHold",
+											"host": [
+												"{{WEBEX_API_URL}}"
+											],
+											"path": [
+												"telephony",
+												"config",
+												"locations",
+												"{{LOCATION_ID}}",
+												"musicOnHold"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Modify Music On Hold Settings",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Expected status code: 204\", function () {",
+													"    pm.response.to.have.status(204);",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"callHoldEnabled\": false,\n    \"callParkEnabled\": true,\n    \"greeting\": \"SYSTEM\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{WEBEX_API_URL}}/telephony/config/locations/{{LOCATION_ID}}/musicOnHold",
+											"host": [
+												"{{WEBEX_API_URL}}"
+											],
+											"path": [
+												"telephony",
+												"config",
+												"locations",
+												"{{LOCATION_ID}}",
+												"musicOnHold"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Announcement Language",
+							"item": [
+								{
+									"name": "Modify Announcement Language",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Expected status code: 204\", function () {",
+													"    pm.response.to.have.status(204);",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"userEnabled\": true,\n    \"serviceEnabled\": true,\n    \"announcementLanguage\": \"en_us\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{WEBEX_API_URL}}/telephony/config/locations/{{LOCATION_ID}}/actions/modifyAnnouncementLanguage/invoke",
+											"host": [
+												"{{WEBEX_API_URL}}"
+											],
+											"path": [
+												"telephony",
+												"config",
+												"locations",
+												"{{LOCATION_ID}}",
+												"actions",
+												"modifyAnnouncementLanguage",
+												"invoke"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Private Network Connect",
+							"item": [
+								{
+									"name": "Get Network Connection Type",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Expected status code: 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{WEBEX_API_URL}}/telephony/config/locations/{{LOCATION_ID}}/privateNetworkConnect",
+											"host": [
+												"{{WEBEX_API_URL}}"
+											],
+											"path": [
+												"telephony",
+												"config",
+												"locations",
+												"{{LOCATION_ID}}",
+												"privateNetworkConnect"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Modify Network Connection Type",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Expected status code: 204\", function () {",
+													"    pm.response.to.have.status(204);",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"networkConnectionType\": \"PUBLIC_INTERNET\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{WEBEX_API_URL}}/telephony/config/locations/{{LOCATION_ID}}/privateNetworkConnect",
+											"host": [
+												"{{WEBEX_API_URL}}"
+											],
+											"path": [
+												"telephony",
+												"config",
+												"locations",
+												"{{LOCATION_ID}}",
+												"privateNetworkConnect"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Voicemail Rules and Settings",
+					"item": [
+						{
+							"name": "Get Voicemail Rules",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Expected status code: 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{WEBEX_API_URL}}/telephony/config/voicemail/rules",
+									"host": [
+										"{{WEBEX_API_URL}}"
+									],
+									"path": [
+										"telephony",
+										"config",
+										"voicemail",
+										"rules"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Modify Voicemail Rules",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Expected status code: 204\", function () {",
+											"    pm.response.to.have.status(204);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"defaultVoicemailPinEnabled\": true,\n    \"defaultVoicemailPin\": \"123544\",\n    \"expirePasscode\":{\n        \"enabled\": true,\n        \"numberOfDays\": 100\n    },\n    \"changePasscode\":{\n        \"enabled\":true,\n        \"numberOfDays\": 1\n    },\n    \"blockPreviousPasscodes\": {\n        \"enabled\": false,\n        \"numberOfPasscodes\": 10\n    }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{WEBEX_API_URL}}/telephony/config/voicemail/rules",
+									"host": [
+										"{{WEBEX_API_URL}}"
+									],
+									"path": [
+										"telephony",
+										"config",
+										"voicemail",
+										"rules"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Voicemail Settings",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Expected status code: 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{WEBEX_API_URL}}/telephony/config/voicemail/settings",
+									"host": [
+										"{{WEBEX_API_URL}}"
+									],
+									"path": [
+										"telephony",
+										"config",
+										"voicemail",
+										"settings"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Modify Voicemail Settings",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Expected status code: 204\", function () {",
+											"    pm.response.to.have.status(204);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"messageExpiryEnabled\": true,\n    \"numberOfDaysForMessageExpiry\": 15,\n    \"strictDeletionEnabled\": true,\n    \"voiceMessageForwardingEnabled\": true\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{WEBEX_API_URL}}/telephony/config/voicemail/settings",
+									"host": [
+										"{{WEBEX_API_URL}}"
+									],
+									"path": [
+										"telephony",
+										"config",
+										"voicemail",
+										"settings"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Numbers",
+					"item": [
+						{
+							"name": "Number Settings",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Expected status code: 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"let response = pm.response.json();",
+											"pm.collectionVariables.set(\"_ownerId\", response.phoneNumbers[0].owner.id);",
+											"pm.collectionVariables.set(\"_ownerType\", response.phoneNumbers[0].owner.type);",
+											"",
+											"var jsonArray = response.phoneNumbers;",
+											"var extensions = [];",
+											"for(var i=0;i<3;i++){",
+											"extensions[i] = jsonArray[i].extension;",
+											"}",
+											"pm.collectionVariables.set(\"_extensions\",extensions)",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{WEBEX_TOKEN}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{WEBEX_API_URL}}/telephony/config/numbers",
+									"host": [
+										"{{WEBEX_API_URL}}"
+									],
+									"path": [
+										"telephony",
+										"config",
+										"numbers"
+									],
+									"query": [
+										{
+											"key": "max",
+											"value": "10",
+											"disabled": true
+										},
+										{
+											"key": "offset",
+											"value": "200",
+											"disabled": true
+										},
+										{
+											"key": "ownerId",
+											"value": "{{_ownerId}}",
+											"disabled": true
+										},
+										{
+											"key": "locationId",
+											"value": "{{LOCATION_ID}}",
+											"disabled": true
+										},
+										{
+											"key": "ownerType",
+											"value": "{{_ownerType}}",
+											"disabled": true
+										},
+										{
+											"key": "ownerName",
+											"value": "",
+											"disabled": true
+										},
+										{
+											"key": "available",
+											"value": "true",
+											"disabled": true
+										},
+										{
+											"key": "order",
+											"value": "lastName-asc",
+											"disabled": true
+										},
+										{
+											"key": "extension",
+											"value": "000",
+											"disabled": true
+										},
+										{
+											"key": "numberType",
+											"value": "NUMBER",
+											"disabled": true
+										},
+										{
+											"key": "phoneNumberType",
+											"value": "PRIMARY",
+											"disabled": true
+										},
+										{
+											"key": "state",
+											"value": "ACTIVE",
+											"disabled": true
+										},
+										{
+											"key": "details",
+											"value": "true",
+											"disabled": true
+										},
+										{
+											"key": "tollFreeNumbers",
+											"value": "false",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Number Settings For Location",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Expected status code: 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{WEBEX_TOKEN}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{WEBEX_API_URL}}/telephony/config/numbers?locationId={{_locationIdForNumbers}}",
+									"host": [
+										"{{WEBEX_API_URL}}"
+									],
+									"path": [
+										"telephony",
+										"config",
+										"numbers"
+									],
+									"query": [
+										{
+											"key": "locationId",
+											"value": "{{_locationIdForNumbers}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Number Settings For Owner Id",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Expected status code: 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{WEBEX_TOKEN}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{WEBEX_API_URL}}/telephony/config/numbers?ownerId={{_ownerId}}",
+									"host": [
+										"{{WEBEX_API_URL}}"
+									],
+									"path": [
+										"telephony",
+										"config",
+										"numbers"
+									],
+									"query": [
+										{
+											"key": "ownerId",
+											"value": "{{_ownerId}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Number Settings For Owner Type",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Expected status code: 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{WEBEX_TOKEN}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{WEBEX_API_URL}}/telephony/config/numbers?ownerType={{_ownerType}}",
+									"host": [
+										"{{WEBEX_API_URL}}"
+									],
+									"path": [
+										"telephony",
+										"config",
+										"numbers"
+									],
+									"query": [
+										{
+											"key": "ownerType",
+											"value": "{{_ownerType}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Extension Settings",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Expected status code: 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"extensions\": [\n   {{_extensions}}\n  ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{WEBEX_API_URL}}/telephony/config/actions/validateExtensions/invoke",
+									"host": [
+										"{{WEBEX_API_URL}}"
+									],
+									"path": [
+										"telephony",
+										"config",
+										"actions",
+										"validateExtensions",
+										"invoke"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Webex Calling Person Settings",
+			"item": [
+				{
+					"name": "Call Waiting",
+					"item": [
+						{
+							"name": "Get Call Waiting",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Expected status code: 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{WEBEX_API_URL}}/people/{{PERSON_ID}}/features/callWaiting",
+									"host": [
+										"{{WEBEX_API_URL}}"
+									],
+									"path": [
+										"people",
+										"{{PERSON_ID}}",
+										"features",
+										"callWaiting"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Call Waiting",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Expected status code: 204\", function () {",
+											"    pm.response.to.have.status(204);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"enabled\": true\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{WEBEX_API_URL}}/people/{{PERSON_ID}}/features/callWaiting",
+									"host": [
+										"{{WEBEX_API_URL}}"
+									],
+									"path": [
+										"people",
+										"{{PERSON_ID}}",
+										"features",
+										"callWaiting"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Privacy",
+					"item": [
+						{
+							"name": "Get Privacy",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Expected status code: 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{WEBEX_API_URL}}/people/{{PERSON_ID}}/features/privacy",
+									"host": [
+										"{{WEBEX_API_URL}}"
+									],
+									"path": [
+										"people",
+										"{{PERSON_ID}}",
+										"features",
+										"privacy"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Privacy",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Expected status code: 204\", function () {",
+											"    pm.response.to.have.status(204);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"aaExtensionDialingEnabled\": false,\n    \"aaNamingDialingEnabled\": true,\n    \"enablePhoneStatusDirectoryPrivacy\": true,\n    \"monitoringAgents\": [\n        \"{{MONITORED_AGENTID_1}}\",\n        \"{{MONITORED_AGENTID_2}}\"\n    ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{WEBEX_API_URL}}/people/{{PERSON_ID}}/features/privacy",
+									"host": [
+										"{{WEBEX_API_URL}}"
+									],
+									"path": [
+										"people",
+										"{{PERSON_ID}}",
+										"features",
+										"privacy"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Schedules and Events",
+					"item": [
+						{
+							"name": "Create Schedule",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Expected status code: 201\", function () {",
+											"    pm.response.to.have.status(201);",
+											"});",
+											"",
+											"let response = pm.response.json();",
+											"pm.collectionVariables.set(\"_scheduleId\", response.id);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disabledSystemHeaders": {
+									"content-type": true
+								}
+							},
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"type\": \"{{SCHEDULE_TYPE}}\",\n    \"name\": \"schedule 1\",\n    \"events\": [\n        {\n            \"name\": \"event 1\",\n            \"startDate\": \"2022-03-01\",\n            \"endDate\": \"2022-03-03\",\n            \"startTime\": \"12:30\",\n            \"endTime\": \"15:30\",\n            \"allDayEnabled\": false,\n            \"recurrence\": {\n                \"recurDaily\": {\n                    \"recurInterval\": 365\n                }\n            }\n        }\n    ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{WEBEX_API_URL}}/people/{{PERSON_ID}}/features/schedules",
+									"host": [
+										"{{WEBEX_API_URL}}"
+									],
+									"path": [
+										"people",
+										"{{PERSON_ID}}",
+										"features",
+										"schedules"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Schedule",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Expected status code: 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{WEBEX_API_URL}}/people/{{PERSON_ID}}/features/schedules/{{SCHEDULE_TYPE}}/{{_scheduleId}}",
+									"host": [
+										"{{WEBEX_API_URL}}"
+									],
+									"path": [
+										"people",
+										"{{PERSON_ID}}",
+										"features",
+										"schedules",
+										"{{SCHEDULE_TYPE}}",
+										"{{_scheduleId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Schedule",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Expected status code: 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"let response = pm.response.json();",
+											"pm.collectionVariables.set(\"_scheduleId\", response.id);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"schedule 1\",\n    \"events\": [\n        {\n            \"name\": \"event 1\",\n            \"newName\": \"event 2\",\n            \"startDate\": \"2022-03-01\",\n            \"endDate\": \"2022-03-03\",\n            \"startTime\": \"17:30\",\n            \"endTime\": \"21:30\",\n            \"allDayEnabled\": false,\n            \"recurrence\": {\n                \"recurWeekly\": {\n                    \"friday\": true\n                }\n            }\n        }\n    ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{WEBEX_API_URL}}/people/{{PERSON_ID}}/features/schedules/{{SCHEDULE_TYPE}}/{{_scheduleId}}",
+									"host": [
+										"{{WEBEX_API_URL}}"
+									],
+									"path": [
+										"people",
+										"{{PERSON_ID}}",
+										"features",
+										"schedules",
+										"{{SCHEDULE_TYPE}}",
+										"{{_scheduleId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Event",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Expected status code: 201\", function () {",
+											"    pm.response.to.have.status(201);",
+											"});",
+											"",
+											"let response = pm.response.json();",
+											"pm.collectionVariables.set(\"_eventId\", response.id);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"event 1\",\n    \"startDate\": \"2022-02-25\",\n    \"endDate\": \"2022-02-25\",\n    \"startTime\": \"12:30\",\n    \"endTime\": \"15:30\",\n    \"allDayEnabled\": false,\n    \"recurrence\": {\n        \"recurWeekly\": {\n            \"friday\": true\n        }\n    }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{WEBEX_API_URL}}/people/{{PERSON_ID}}/features/schedules/{{SCHEDULE_TYPE}}/{{_scheduleId}}/events",
+									"host": [
+										"{{WEBEX_API_URL}}"
+									],
+									"path": [
+										"people",
+										"{{PERSON_ID}}",
+										"features",
+										"schedules",
+										"{{SCHEDULE_TYPE}}",
+										"{{_scheduleId}}",
+										"events"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Event",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Expected status code: 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{WEBEX_API_URL}}/people/{{PERSON_ID}}/features/schedules/{{SCHEDULE_TYPE}}/{{_scheduleId}}/events/{{_eventId}}",
+									"host": [
+										"{{WEBEX_API_URL}}"
+									],
+									"path": [
+										"people",
+										"{{PERSON_ID}}",
+										"features",
+										"schedules",
+										"{{SCHEDULE_TYPE}}",
+										"{{_scheduleId}}",
+										"events",
+										"{{_eventId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Event",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Expected status code: 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"let response = pm.response.json();",
+											"pm.collectionVariables.set(\"_eventId\", response.id);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"event 3\",\n    \"startDate\": \"2022-03-04\",\n    \"endDate\": \"2022-03-04\",\n    \"startTime\":\"11:30\",\n    \"endTime\":\"18:00\",\n    \"allDayEnabled\": false,\n    \"recurrence\":{\n        \"recurForever\":true,\n        \"recurWeekly\":{\n            \"monday\":true\n        }\n    }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{WEBEX_API_URL}}/people/{{PERSON_ID}}/features/schedules/{{SCHEDULE_TYPE}}/{{_scheduleId}}/events/{{_eventId}}",
+									"host": [
+										"{{WEBEX_API_URL}}"
+									],
+									"path": [
+										"people",
+										"{{PERSON_ID}}",
+										"features",
+										"schedules",
+										"{{SCHEDULE_TYPE}}",
+										"{{_scheduleId}}",
+										"events",
+										"{{_eventId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Event",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Expected status code: 204\", function () {",
+											"    pm.response.to.have.status(204);",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{WEBEX_API_URL}}/people/{{PERSON_ID}}/features/schedules/{{SCHEDULE_TYPE}}/{{_scheduleId}}/events/{{_eventId}}",
+									"host": [
+										"{{WEBEX_API_URL}}"
+									],
+									"path": [
+										"people",
+										"{{PERSON_ID}}",
+										"features",
+										"schedules",
+										"{{SCHEDULE_TYPE}}",
+										"{{_scheduleId}}",
+										"events",
+										"{{_eventId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Schedule",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Expected status code: 204\", function () {",
+											"    pm.response.to.have.status(204);",
+											"});",
+											"",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{WEBEX_API_URL}}/people/{{PERSON_ID}}/features/schedules/{{SCHEDULE_TYPE}}/{{_scheduleId}}",
+									"host": [
+										"{{WEBEX_API_URL}}"
+									],
+									"path": [
+										"people",
+										"{{PERSON_ID}}",
+										"features",
+										"schedules",
+										"{{SCHEDULE_TYPE}}",
+										"{{_scheduleId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get List Of Schedules",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Expected status code: 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{WEBEX_API_URL}}/people/{{PERSON_ID}}/features/schedules?type={{SCHEDULE_TYPE}}",
+									"host": [
+										"{{WEBEX_API_URL}}"
+									],
+									"path": [
+										"people",
+										"{{PERSON_ID}}",
+										"features",
+										"schedules"
+									],
+									"query": [
+										{
+											"key": "type",
+											"value": "{{SCHEDULE_TYPE}}"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Receptionist Client",
+					"item": [
+						{
+							"name": "Get Reception",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Expected status code: 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{WEBEX_API_URL}}/people/{{PERSON_ID}}/features/reception",
+									"host": [
+										"{{WEBEX_API_URL}}"
+									],
+									"path": [
+										"people",
+										"{{PERSON_ID}}",
+										"features",
+										"reception"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Reception",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Expected status code: 204\", function () {",
+											"    pm.response.to.have.status(204);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"receptionEnabled\": true,\r\n    \"monitoredMembers\": [\r\n        \"{{MONITORED_AGENTID_1}}\",\r\n        \"{{MONITORED_AGENTID_2}}\"\r\n    ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{WEBEX_API_URL}}/people/{{PERSON_ID}}/features/reception",
+									"host": [
+										"{{WEBEX_API_URL}}"
+									],
+									"path": [
+										"people",
+										"{{PERSON_ID}}",
+										"features",
+										"reception"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Push-to-Talk",
+					"item": [
+						{
+							"name": "Get Push-To-Talk",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Expected status code: 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{WEBEX_API_URL}}/people/{{PERSON_ID}}/features/pushToTalk",
+									"host": [
+										"{{WEBEX_API_URL}}"
+									],
+									"path": [
+										"people",
+										"{{PERSON_ID}}",
+										"features",
+										"pushToTalk"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Push-To-Talk",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Expected status code: 204\", function () {",
+											"    pm.response.to.have.status(204);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"allowAutoAnswer\": true,\r\n    \"connectionType\": \"ONE_WAY\",\r\n    \"accessType\": \"ALLOW_MEMBERS\",\r\n    \"members\": [\r\n        \"{{MONITORED_AGENTID_1}}\",\r\n        \"{{MONITORED_AGENTID_2}}\"\r\n    ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{WEBEX_API_URL}}/people/{{PERSON_ID}}/features/pushToTalk",
+									"host": [
+										"{{WEBEX_API_URL}}"
+									],
+									"path": [
+										"people",
+										"{{PERSON_ID}}",
+										"features",
+										"pushToTalk"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Numbers",
+					"item": [
+						{
+							"name": "Get Numbers",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Expected status code: 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{WEBEX_API_URL}}/people/{{PERSON_ID}}/features/numbers",
+									"host": [
+										"{{WEBEX_API_URL}}"
+									],
+									"path": [
+										"people",
+										"{{PERSON_ID}}",
+										"features",
+										"numbers"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Hoteling",
+					"item": [
+						{
+							"name": "Get Hoteling",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Expected status code: 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{WEBEX_API_URL}}/people/{{PERSON_ID}}/features/hoteling",
+									"host": [
+										"{{WEBEX_API_URL}}"
+									],
+									"path": [
+										"people",
+										"{{PERSON_ID}}",
+										"features",
+										"hoteling"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Hoteling",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Expected status code: 204\", function () {",
+											"    pm.response.to.have.status(204);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"enabled\": true\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{WEBEX_API_URL}}/people/{{PERSON_ID}}/features/hoteling",
+									"host": [
+										"{{WEBEX_API_URL}}"
+									],
+									"path": [
+										"people",
+										"{{PERSON_ID}}",
+										"features",
+										"hoteling"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Voicemail",
+					"item": [
+						{
+							"name": "Reset Voicemail Pin",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Expected status code: 204\", function () {",
+											"    pm.response.to.have.status(204);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{WEBEX_API_URL}}/people/{{PERSON_ID}}/features/voicemail/actions/resetPin/invoke",
+									"host": [
+										"{{WEBEX_API_URL}}"
+									],
+									"path": [
+										"people",
+										"{{PERSON_ID}}",
+										"features",
+										"voicemail",
+										"actions",
+										"resetPin",
+										"invoke"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Incoming Permission",
+					"item": [
+						{
+							"name": "Get Incoming Permission",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Expected status code: 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{WEBEX_API_URL}}/people/{{PERSON_ID}}/features/incomingPermission",
+									"host": [
+										"{{WEBEX_API_URL}}"
+									],
+									"path": [
+										"people",
+										"{{PERSON_ID}}",
+										"features",
+										"incomingPermission"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Incoming Permission",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Expected status code: 204\", function () {",
+											"    pm.response.to.have.status(204);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"useCustomEnabled\": false,\n    \"externalTransfer\": \"ALLOW_ALL_EXTERNAL\",\n    \"internalCallsEnabled\": true,\n    \"collectCallsEnabled\": true\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{WEBEX_API_URL}}/people/{{PERSON_ID}}/features/incomingPermission",
+									"host": [
+										"{{WEBEX_API_URL}}"
+									],
+									"path": [
+										"people",
+										"{{PERSON_ID}}",
+										"features",
+										"incomingPermission"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Outgoing Permission",
+					"item": [
+						{
+							"name": "Get Outgoing Permission",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Expected status code: 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{WEBEX_API_URL}}/people/{{PERSON_ID}}/features/outgoingPermission",
+									"host": [
+										"{{WEBEX_API_URL}}"
+									],
+									"path": [
+										"people",
+										"{{PERSON_ID}}",
+										"features",
+										"outgoingPermission"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Outgoing Permission",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Expected status code: 204\", function () {",
+											"    pm.response.to.have.status(204);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"useCustomEnabled\": false,\n    \"callingPermissions\": [\n        {\n            \"callType\": \"INTERNAL_CALL\",\n            \"action\": \"ALLOW\",\n            \"transferEnabled\": true\n        },\n        {\n            \"callType\": \"LOCAL\",\n            \"action\": \"ALLOW\",\n            \"transferEnabled\": true\n        },\n        {\n            \"callType\": \"TOLL_FREE\",\n            \"action\": \"ALLOW\",\n            \"transferEnabled\": true\n        },\n        {\n            \"callType\": \"TOLL\",\n            \"action\": \"ALLOW\",\n            \"transferEnabled\": true\n        },\n        {\n            \"callType\": \"INTERNATIONAL\",\n            \"action\": \"BLOCK\",\n            \"transferEnabled\": false\n        },\n        {\n            \"callType\": \"OPERATOR_ASSISTED\",\n            \"action\": \"ALLOW\",\n            \"transferEnabled\": true\n        },\n        {\n            \"callType\": \"CHARGEABLE_DIRECTORY_ASSISTED\",\n            \"action\": \"ALLOW\",\n            \"transferEnabled\": true\n        },\n        {\n            \"callType\": \"SPECIAL_SERVICES_I\",\n            \"action\": \"ALLOW\",\n            \"transferEnabled\": true\n        },\n        {\n            \"callType\": \"SPECIAL_SERVICES_II\",\n            \"action\": \"ALLOW\",\n            \"transferEnabled\": true\n        },\n        {\n            \"callType\": \"PREMIUM_SERVICES_I\",\n            \"action\": \"BLOCK\",\n            \"transferEnabled\": false\n        },\n        {\n            \"callType\": \"PREMIUM_SERVICES_II\",\n            \"action\": \"BLOCK\",\n            \"transferEnabled\": false\n        },\n        {\n            \"callType\": \"CASUAL\",\n            \"action\": \"BLOCK\",\n            \"transferEnabled\": false\n        },\n        {\n            \"callType\": \"URL_DIALING\",\n            \"action\": \"ALLOW\",\n            \"transferEnabled\": true\n        },\n        {\n            \"callType\": \"UNKNOWN\",\n            \"action\": \"ALLOW\",\n            \"transferEnabled\": true\n        }\n    ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{WEBEX_API_URL}}/people/{{PERSON_ID}}/features/outgoingPermission",
+									"host": [
+										"{{WEBEX_API_URL}}"
+									],
+									"path": [
+										"people",
+										"{{PERSON_ID}}",
+										"features",
+										"outgoingPermission"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Executive Assistant",
+					"item": [
+						{
+							"name": "Get Executive Assistant",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Expected status code: 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{WEBEX_API_URL}}/people/{{PERSON_ID}}/features/executiveAssistant",
+									"host": [
+										"{{WEBEX_API_URL}}"
+									],
+									"path": [
+										"people",
+										"{{PERSON_ID}}",
+										"features",
+										"executiveAssistant"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Executive Assistant",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Expected status code: 204\", function () {",
+											"    pm.response.to.have.status(204);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"type\": \"ASSIGNED\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{WEBEX_API_URL}}/people/{{PERSON_ID}}/features/executiveAssistant",
+									"host": [
+										"{{WEBEX_API_URL}}"
+									],
+									"path": [
+										"people",
+										"{{PERSON_ID}}",
+										"features",
+										"executiveAssistant"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Application Services",
+					"item": [
+						{
+							"name": "Get Application Services",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Expected status code: 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{WEBEX_API_URL}}/people/{{PERSON_ID}}/features/applications",
+									"host": [
+										"{{WEBEX_API_URL}}"
+									],
+									"path": [
+										"people",
+										"{{PERSON_ID}}",
+										"features",
+										"applications"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Application Services",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Expected status code: 204\", function () {",
+											"    pm.response.to.have.status(204);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"ringDevicesForClickToDialCallsEnabled\": true,\n    \"ringDevicesForGroupPageEnabled\": false,\n    \"ringDevicesForCallParkEnabled\": true,\n    \"desktopClientEnabled\": true,\n    \"mobileClientEnabled\": true,\n    \"tabletClientEnabled\": true\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{WEBEX_API_URL}}/people/{{PERSON_ID}}/features/applications",
+									"host": [
+										"{{WEBEX_API_URL}}"
+									],
+									"path": [
+										"people",
+										"{{PERSON_ID}}",
+										"features",
+										"applications"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Monitoring",
+					"item": [
+						{
+							"name": "Get Monitoring",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Expected status code: 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{WEBEX_API_URL}}/people/{{PERSON_ID}}/features/monitoring",
+									"host": [
+										"{{WEBEX_API_URL}}"
+									],
+									"path": [
+										"people",
+										"{{PERSON_ID}}",
+										"features",
+										"monitoring"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Monitoring",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Expected status code: 204\", function () {",
+											"    pm.response.to.have.status(204);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"enableCallParkNotification\":true,\n    \"monitoredElements\":[\n        \"{{MONITORED_AGENTID_1}}\",\n        \"{{MONITORED_AGENTID_2}}\"\n    ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{WEBEX_API_URL}}/people/{{PERSON_ID}}/features/monitoring",
+									"host": [
+										"{{WEBEX_API_URL}}"
+									],
+									"path": [
+										"people",
+										"{{PERSON_ID}}",
+										"features",
+										"monitoring"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Webex Calling Workspace Settings",
+			"item": [
+				{
+					"name": "Number Settings",
+					"item": [
+						{
+							"name": "Workspace numbers List",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Expected status code: 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "default"
+									}
+								],
+								"url": {
+									"raw": "{{WEBEX_API_URL}}/workspaces/{{WORKSPACE_ID}}/features/numbers",
+									"host": [
+										"{{WEBEX_API_URL}}"
+									],
+									"path": [
+										"workspaces",
+										"{{WORKSPACE_ID}}",
+										"features",
+										"numbers"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{WEBEX_TOKEN}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "WEBEX_TOKEN",
+			"value": "Set this to an authorized user's token"
+		},
+		{
+			"key": "WEBEX_API_URL",
+			"value": "https://webexapis.com/v1"
+		},
+		{
+			"key": "LOCATION_ID",
+			"value": "Set this to the location Id"
+		},
+		{
+			"key": "_voicemailGroupId",
+			"value": ""
+		},
+		{
+			"key": "PERSON_ID",
+			"value": "Set this to a valid person ID"
+		},
+		{
+			"key": "MONITORED_AGENTID_1",
+			"value": "Set this to a valid person id that need to be monitored"
+		},
+		{
+			"key": "MONITORED_AGENTID_2",
+			"value": "Set this to a valid person id that need to be monitored"
+		},
+		{
+			"key": "_scheduleId",
+			"value": ""
+		},
+		{
+			"key": "SCHEDULE_TYPE",
+			"value": "Set this to a valid hydra schedule type"
+		},
+		{
+			"key": "_eventId",
+			"value": ""
+		},
+		{
+			"key": "_locationIdForNumbers",
+			"value": "",
+			"type": "default"
+		},
+		{
+			"key": "_ownerId",
+			"value": "",
+			"type": "default"
+		},
+		{
+			"key": "_ownerType",
+			"value": "",
+			"type": "default"
+		},
+		{
+			"key": "WORKSPACE_ID",
+			"value": "Set this to a valid workspace Id",
+			"type": "default"
+		},
+		{
+			"key": "_extensions",
+			"value": ""
+		}
+	]
+}
