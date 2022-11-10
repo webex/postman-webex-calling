@@ -12,3 +12,8 @@ The environment variables for the collection in this folder:
 * MONITORED_AGENTID_2 -- The person/place id used by person feature APIs for being monitored.
 * SCHEDULE_TYPE -- Valid schedule type used by person feature schedule and event APIs.
 * WORKSPACE_ID -- Valid workspaceId used by the numbers feature for a workspace
+* LOCATIONID_FOR_DEVICES -- Valid locationId to which all configured devices belong.
+* MAC_ADDRESS -- The input MAC addresses that needs to be validated.
+* DEVICE_MODEL -- Model name of the device for which settings needs to be retrieved.
+* DEVICE_ID -- Valid device id to fetch/update current configuration settings.
+* APPLICATION_ID -- Valid application id.
