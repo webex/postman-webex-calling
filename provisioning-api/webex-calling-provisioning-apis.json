@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "6f9ba1b8-7a1a-4f3f-a20d-63cebd731643",
+		"_postman_id": "1fc30fe5-e199-4a05-ad07-02118f05560e",
 		"name": "Webex Calling Provisioning APIs",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -1484,6 +1484,718 @@
 							"response": []
 						}
 					]
+				},
+				{
+					"name": "Devices",
+					"item": [
+						{
+							"name": "Bulk Apis",
+							"item": [
+								{
+									"name": "Device Settings For Organization",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 202\", function () {",
+													"    pm.response.to.have.status(202);",
+													"});",
+													"",
+													"let response = pm.response.json();",
+													"pm.collectionVariables.set(\"_jobId\", response.id);",
+													"",
+													"postman.setNextRequest(\"Get Device Settings Job Details\")"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "SPARK_FROM_HYDRA",
+												"value": "true",
+												"type": "default"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\"customEnabled\": true,\n    \"customizations\": {\n        \"ata\": {\n            \"audioCodecPriority\": {\n                \"selection\": \"REGIONAL\",\n                \"primary\": \"G711a\",\n                \"secondary\": \"G711u\",\n                \"tertiary\": \"G729a\"\n            },\n            \"ataDtmfMode\": \"NORMAL\",\n            \"ataDtmfMethod\": \"AVT\",\n            \"cdpEnabled\": true,\n            \"lldpEnabled\": true,\n            \"qosEnabled\": true,\n            \"vlan\": {\n                \"enabled\": true,\n                \"value\": 1\n            }\n        },\n        \"dect\": {\n            \"audioCodecPriority\": {\n                \"selection\": \"REGIONAL\",\n                \"primary\": \"G729\",\n                \"secondary\": \"G711u\",\n                \"tertiary\": \"G711a\"\n            },\n            \"cdpEnabled\": true,\n            \"lldpEnabled\": true,\n            \"qosEnabled\": true,\n            \"vlan\": {\n                \"enabled\": false,\n                \"value\": 0\n            }\n        },\n        \"mpp\": {\n            \"pnacEnabled\": true,\n            \"audioCodecPriority\": {\n                \"selection\": \"CUSTOM\",\n                \"primary\": \"OPUS\",\n                \"secondary\": \"G722\",\n                \"tertiary\": \"G711u\"\n            },\n            \"backlightTimer\": \"ONE_M\",\n            \"background\": {\n                \"customUrl\": null,\n                \"image\": \"WEBEX_DARK_BLUE\"\n            },\n            \"displayNameFormat\": \"PERSON_NUMBER\",\n            \"cdpEnabled\": false,\n            \"defaultLoggingLevel\": \"STANDARD\",\n            \"dndServicesEnabled\": true,\n            \"acd\": {\n                \"enabled\": true,\n                \"displayCallqueueAgentSoftkeys\": \"LAST_PAGE\"\n            },\n            \"shortInterdigitTimer\": 14,\n            \"longInterdigitTimer\": 16,\n            \"lineKeyLabelFormat\": \"PERSON_FIRST_THEN_LAST_NAME\",\n            \"lineKeyLEDPattern\": \"DEFAULT\",\n            \"lldpEnabled\": false,\n            \"mppUserWebAccessEnabled\": true,\n            \"multicast\": [\n                \"236.86.108.226:22311\"\n            ],\n            \"offHookTimer\": 30,\n            \"phoneLanguage\": \"PERSON_LANGUAGE\",\n            \"poeMode\": \"MAXIMUM\",\n            \"qosEnabled\": true,\n            \"screenTimeout\": {\n                \"enabled\": true,\n                \"value\": 400\n            },\n            \"usbPortsEnabled\": true,\n            \"vlan\": {\n                \"enabled\": false,\n                \"value\": 1,\n                \"pcPort\": 1\n            },\n            \"wifiNetwork\": {\n                \"enabled\": false,\n                \"authenticationMethod\": \"PSK\"\n            }\n        }\n    }\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{WEBEX_API_URL}}/telephony/config/jobs/devices/callDeviceSettings",
+											"host": [
+												"{{WEBEX_API_URL}}"
+											],
+											"path": [
+												"telephony",
+												"config",
+												"jobs",
+												"devices",
+												"callDeviceSettings"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Device Settings For Location With Customizations",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 202\", function () {",
+													"    pm.response.to.have.status(202);",
+													"});",
+													"",
+													"let response = pm.response.json();",
+													"pm.collectionVariables.set(\"_jobId\", response.id);"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "SPARK_FROM_HYDRA",
+												"value": "true",
+												"type": "default"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"locationId\": \"{{LOCATIONID_FOR_DEVICES}}\",\n  \"customEnabled\": true,\n  \"customizations\": {\n    \"ata\": {\n      \"audioCodecPriority\": {\n        \"primary\": \"G711a\",\n        \"secondary\": \"G711u\",\n        \"tertiary\": \"G729a\",\n        \"selection\": \"REGIONAL\"\n      },\n      \"ataDtmfMode\": \"STRICT\",\n      \"ataDtmfMethod\": \"AVT\",\n      \"cdpEnabled\": true,\n      \"lldpEnabled\": true,\n      \"qosEnabled\": true,\n      \"vlan\": {\n        \"enabled\": true,\n        \"value\": 1\n      }\n    },\n    \"dect\": {\n      \"audioCodecPriority\": {\n        \"primary\": \"G729\",\n        \"secondary\": \"G711u\",\n        \"tertiary\": \"G711a\",\n        \"selection\": \"REGIONAL\"\n      },\n      \"cdpEnabled\": true,\n      \"lldpEnabled\": true,\n      \"multicast\": [],\n      \"qosEnabled\": true,\n      \"vlan\": {\n        \"enabled\": false,\n        \"value\": null\n      }\n    },\n    \"mpp\": {\n      \"pnacEnabled\": false,\n      \"audioCodecPriority\": {\n        \"primary\": \"OPUS\",\n        \"secondary\": \"G722\",\n        \"tertiary\": \"G711u\",\n        \"selection\": \"REGIONAL\"\n      },\n      \"backlightTimer\": \"FIVE_M\",\n      \"background\": {\n        \"customUrl\": null,\n        \"image\": \"NONE\"\n      },\n      \"displayNameFormat\": \"PERSON_NUMBER\",\n      \"cdpEnabled\": true,\n      \"dndServicesEnabled\": true,\n      \"acd\": {\n        \"enabled\": false,\n        \"displayCallqueueAgentSoftkeys\": \"LAST_PAGE\"\n      },\n      \"shortInterdigitTimer\": 10,\n      \"longInterdigitTimer\": 15,\n      \"lineKeyLabelFormat\": \"PERSON_EXTENSION\",\n      \"lineKeyLEDPattern\": \"DEFAULT\",\n      \"lldpEnabled\": true,\n      \"mppUserWebAccessEnabled\": false,\n      \"multicast\": [],\n      \"offHookTimer\": 30,\n      \"phoneLanguage\": \"PERSON_LANGUAGE\",\n      \"poeMode\": \"MAXIMUM\",\n      \"qosEnabled\": true,\n      \"screenTimeout\": {\n        \"enabled\": false,\n        \"value\": 300\n      },\n      \"usbPortsEnabled\": true,\n      \"vlan\": {\n        \"enabled\": false,\n        \"value\": 1,\n        \"pcPort\": 1\n      },\n      \"wifiNetwork\": {\n        \"enabled\": true,\n        \"authenticationMethod\": \"WEP\"\n      }\n    }\n  }\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{WEBEX_API_URL}}/telephony/config/jobs/devices/callDeviceSettings",
+											"host": [
+												"{{WEBEX_API_URL}}"
+											],
+											"path": [
+												"telephony",
+												"config",
+												"jobs",
+												"devices",
+												"callDeviceSettings"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Device Settings For Location Without Customizations",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 202\", function () {",
+													"    pm.response.to.have.status(202);",
+													"});",
+													"",
+													"let response = pm.response.json();",
+													"pm.collectionVariables.set(\"_jobId\", response.id);"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "SPARK_FROM_HYDRA",
+												"value": "true",
+												"type": "default"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"locationId\": \"{{LOCATIONID_FOR_DEVICES}}\",\n  \"customEnabled\": false\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{WEBEX_API_URL}}/telephony/config/jobs/devices/callDeviceSettings",
+											"host": [
+												"{{WEBEX_API_URL}}"
+											],
+											"path": [
+												"telephony",
+												"config",
+												"jobs",
+												"devices",
+												"callDeviceSettings"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Get Device Settings Job Details",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "SPARK_FROM_HYDRA",
+												"value": "true",
+												"type": "default"
+											}
+										],
+										"url": {
+											"raw": "{{WEBEX_API_URL}}/telephony/config/jobs/devices/callDeviceSettings/{{_jobId}}",
+											"host": [
+												"{{WEBEX_API_URL}}"
+											],
+											"path": [
+												"telephony",
+												"config",
+												"jobs",
+												"devices",
+												"callDeviceSettings",
+												"{{_jobId}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "List Device Settings Jobs",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "SPARK_FROM_HYDRA",
+												"value": "true",
+												"type": "default"
+											}
+										],
+										"url": {
+											"raw": "{{WEBEX_API_URL}}/telephony/config/jobs/devices/callDeviceSettings",
+											"host": [
+												"{{WEBEX_API_URL}}"
+											],
+											"path": [
+												"telephony",
+												"config",
+												"jobs",
+												"devices",
+												"callDeviceSettings"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "List Device Settings Errors",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "SPARK_FROM_HYDRA",
+												"value": "true",
+												"type": "default"
+											}
+										],
+										"url": {
+											"raw": "{{WEBEX_API_URL}}/telephony/config/jobs/devices/callDeviceSettings/{{_jobId}}/errors",
+											"host": [
+												"{{WEBEX_API_URL}}"
+											],
+											"path": [
+												"telephony",
+												"config",
+												"jobs",
+												"devices",
+												"callDeviceSettings",
+												"{{_jobId}}",
+												"errors"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Get Supported Devices",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{WEBEX_API_URL}}/telephony/config/supportedDevices",
+									"host": [
+										"{{WEBEX_API_URL}}"
+									],
+									"path": [
+										"telephony",
+										"config",
+										"supportedDevices"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Devices Settings",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{WEBEX_API_URL}}/telephony/config/devices/settings",
+									"host": [
+										"{{WEBEX_API_URL}}"
+									],
+									"path": [
+										"telephony",
+										"config",
+										"devices",
+										"settings"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Device Settings - Single Model Only",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{WEBEX_API_URL}}/telephony/config/devices/{{DEVICE_ID}}/settings?deviceModel={{DEVICE_MODEL}}",
+									"host": [
+										"{{WEBEX_API_URL}}"
+									],
+									"path": [
+										"telephony",
+										"config",
+										"devices",
+										"{{DEVICE_ID}}",
+										"settings"
+									],
+									"query": [
+										{
+											"key": "deviceModel",
+											"value": "{{DEVICE_MODEL}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Modify Device Settings - Single Model Only",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"customEnabled\": true,\n    \"customizations\": {\n        \"mpp\": {\n            \"pnacEnabled\": true,\n            \"audioCodecPriority\": {\n                \"selection\": \"CUSTOM\",\n                \"primary\": \"OPUS\",\n                \"secondary\": \"G722\",\n                \"tertiary\": \"G711u\"\n            },\n            \"backlightTimer\": \"ONE_M\",\n            \"background\": {\n                \"image\": \"WEBEX_DARK_BLUE\"\n            },\n            \"displayNameFormat\": \"USER_FIRST_THEN_LAST_NAME\",\n            \"cdpEnabled\": false,\n            \"defaultLoggingLevel\": \"STANDARD\",\n            \"dndServicesEnabled\": true,\n            \"acd\": {\n                \"enabled\": true,\n                \"displayCallqueueAgentSoftkeys\": \"LAST_PAGE\"\n            },\n            \"shortInterdigitTimer\": 14,\n            \"longInterdigitTimer\": 16,\n            \"lineKeyLabelFormat\": \"USER_LAST_THEN_FIRST_NAME\",\n            \"lineKeyLEDPattern\": \"DEFAULT\",\n            \"lldpEnabled\": false,\n            \"mppUserWebAccessEnabled\": true,\n            \"multicast\": [\n                \"236.86.108.226:22311\"\n            ],\n            \"offHookTimer\": 30,\n            \"phoneLanguage\": \"RUSSIAN\",\n            \"poeMode\": \"MAXIMUM\",\n            \"qosEnabled\": true,\n            \"screenTimeout\": {\n                \"enabled\": true,\n                \"value\": 400\n            },\n            \"usbPortsEnabled\": true,\n            \"vlan\": {\n                \"enabled\": false,\n                \"value\": 1,\n                \"pcPort\": 1\n            },\n            \"wifiNetwork\": {\n                \"enabled\": false,\n                \"authenticationMethod\": \"PSK\"\n            }\n        }\n    }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{WEBEX_API_URL}}/telephony/config/devices/{{DEVICE_ID}}/settings",
+									"host": [
+										"{{WEBEX_API_URL}}"
+									],
+									"path": [
+										"telephony",
+										"config",
+										"devices",
+										"{{DEVICE_ID}}",
+										"settings"
+									],
+									"query": [
+										{
+											"key": "deviceModel",
+											"value": "DMS Cisco 8865",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Apply Changes To A Device",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"macs\": [\n        \"{{MAC_ADDRESS}}\"\n    ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{WEBEX_API_URL}}/telephony/config/devices/{{DEVICE_ID}}/actions/applyChanges/invoke",
+									"host": [
+										"{{WEBEX_API_URL}}"
+									],
+									"path": [
+										"telephony",
+										"config",
+										"devices",
+										"{{DEVICE_ID}}",
+										"actions",
+										"applyChanges",
+										"invoke"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Devices Settings For A Location",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{WEBEX_API_URL}}/telephony/config/locations/{{LOCATIONID_FOR_DEVICES}}/devices/settings",
+									"host": [
+										"{{WEBEX_API_URL}}"
+									],
+									"path": [
+										"telephony",
+										"config",
+										"locations",
+										"{{LOCATIONID_FOR_DEVICES}}",
+										"devices",
+										"settings"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Device Available Members",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"let response = pm.response.json();",
+											"pm.collectionVariables.set(\"_members.id\", response.members[0].id);",
+											"",
+											"const resBody = pm.response.json();",
+											"for (let i = 0; i < resBody.members.length; i++) {",
+											"if(resBody.members[i].memberType == \"PEOPLE\"){",
+											"    pm.collectionVariables.set(\"_members.personId\", resBody.members[i].id);",
+											"    break;",
+											"}",
+											"}",
+											"",
+											"for (let i = 0; i < resBody.members.length; i++) {",
+											"if(resBody.members[i].memberType == \"PLACE\"){",
+											"    pm.collectionVariables.set(\"_members.workspaceId\", resBody.members[i].id);",
+											"    break;",
+											"}",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{WEBEX_API_URL}}/telephony/config/devices/{{DEVICE_ID}}/availableMembers",
+									"host": [
+										"{{WEBEX_API_URL}}"
+									],
+									"path": [
+										"telephony",
+										"config",
+										"devices",
+										"{{DEVICE_ID}}",
+										"availableMembers"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Device Members",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"let response = pm.response.json();",
+											"pm.collectionVariables.set(\"_members.id\", response.members[0].id);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{WEBEX_API_URL}}/telephony/config/devices/{{DEVICE_ID}}/members",
+									"host": [
+										"{{WEBEX_API_URL}}"
+									],
+									"path": [
+										"telephony",
+										"config",
+										"devices",
+										"{{DEVICE_ID}}",
+										"members"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Modify Device Members",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"members\": [\n        {\n            \"id\": \"{{_members.id}}\",\n            \"firstName\": \"HG Workspace 2\",\n            \"lastName\": \".\",\n            \"extension\": \"78676\",\n            \"primaryOwner\": true,\n            \"port\": 1,\n            \"t38FaxCompressionEnabled\": null,\n            \"lineType\": \"PRIMARY\",\n            \"lineWeight\": 1,\n            \"hotlineEnabled\": false,\n            \"allowCallDeclineEnabled\": true,\n            \"memberType\": \"PLACE\"\n        }\n    ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{WEBEX_API_URL}}/telephony/config/devices/{{DEVICE_ID}}/members",
+									"host": [
+										"{{WEBEX_API_URL}}"
+									],
+									"path": [
+										"telephony",
+										"config",
+										"devices",
+										"{{DEVICE_ID}}",
+										"members"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get DECT Devices Settings",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{WEBEX_API_URL}}/telephony/config/devices/dects/supportedDevices",
+									"host": [
+										"{{WEBEX_API_URL}}"
+									],
+									"path": [
+										"telephony",
+										"config",
+										"devices",
+										"dects",
+										"supportedDevices"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Validate Mac Address",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"macs\": [\n        \"{{MAC_ADDRESS}}\"\n    ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{WEBEX_API_URL}}/telephony/config/devices/actions/validateMacs/invoke",
+									"host": [
+										"{{WEBEX_API_URL}}"
+									],
+									"path": [
+										"telephony",
+										"config",
+										"devices",
+										"actions",
+										"validateMacs",
+										"invoke"
+									]
+								}
+							},
+							"response": []
+						}
+					]
 				}
 			]
 		},
@@ -2760,6 +3472,171 @@
 							"response": []
 						}
 					]
+				},
+				{
+					"name": "Devices",
+					"item": [
+						{
+							"name": "Get Device Settings For A Person",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{WEBEX_API_URL}}/telephony/config/people/{{_members.personId}}/devices",
+									"host": [
+										"{{WEBEX_API_URL}}"
+									],
+									"path": [
+										"telephony",
+										"config",
+										"people",
+										"{{_members.personId}}",
+										"devices"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Person's Application Members",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"let response = pm.response.json();",
+											"pm.collectionVariables.set(\"_members.id\", response.members[0].id);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{WEBEX_API_URL}}/telephony/config/people/{{_members.personId}}/applications/{{APPLICATION_ID}}/members",
+									"host": [
+										"{{WEBEX_API_URL}}"
+									],
+									"path": [
+										"telephony",
+										"config",
+										"people",
+										"{{_members.personId}}",
+										"applications",
+										"{{APPLICATION_ID}}",
+										"members"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Modify Person's Application Members",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"members\": [\n    {\n      \"id\": \"{{_members.personId}}\",\n      \"port\": 1,\n      \"primaryOwner\": true,\n      \"lineType\": \"SHARED_CALL_APPEARANCE\",\n      \"lineWeight\": 1,\n      \"hotlineEnabled\": false,\n      \"allowCallDeclineEnabled\": true\n    }\n  ]\n}\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{WEBEX_API_URL}}/telephony/config/people/{{_members.personId}}/applications/{{APPLICATION_ID}}/members",
+									"host": [
+										"{{WEBEX_API_URL}}"
+									],
+									"path": [
+										"telephony",
+										"config",
+										"people",
+										"{{_members.personId}}",
+										"applications",
+										"{{APPLICATION_ID}}",
+										"members"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Person's Application Available Members",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"let response = pm.response.json();",
+											"pm.collectionVariables.set(\"_members.id\", response.members[0].id);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{WEBEX_API_URL}}/telephony/config/people/{{_members.personId}}/applications/{{APPLICATION_ID}}/availableMembers",
+									"host": [
+										"{{WEBEX_API_URL}}"
+									],
+									"path": [
+										"telephony",
+										"config",
+										"people",
+										"{{_members.personId}}",
+										"applications",
+										"{{APPLICATION_ID}}",
+										"availableMembers"
+									]
+								}
+							},
+							"response": []
+						}
+					]
 				}
 			]
 		},
@@ -2803,6 +3680,84 @@
 										"{{WORKSPACE_ID}}",
 										"features",
 										"numbers"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Device Settings",
+					"item": [
+						{
+							"name": "Get Device Settings For A Workspace",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{WEBEX_API_URL}}/telephony/config/workspaces/{{_members.workspaceId}}/devices",
+									"host": [
+										"{{WEBEX_API_URL}}"
+									],
+									"path": [
+										"telephony",
+										"config",
+										"workspaces",
+										"{{_members.workspaceId}}",
+										"devices"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Modify Device Settings For A Workspace",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\"enabled\": true,\n\"limitGuestUse\": true,\n\"guestHoursLimit\": 12\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{WEBEX_API_URL}}/telephony/config/workspaces/{{_members.workspaceId}}/devices",
+									"host": [
+										"{{WEBEX_API_URL}}"
+									],
+									"path": [
+										"telephony",
+										"config",
+										"workspaces",
+										"{{_members.workspaceId}}",
+										"devices"
 									]
 								}
 							},
@@ -2905,7 +3860,51 @@
 			"type": "default"
 		},
 		{
+			"key": "LOCATIONID_FOR_DEVICES",
+			"value": "Set this to a valid location Id for devices",
+			"type": "default"
+		},
+		{
+			"key": "MAC_ADDRESS_LIST",
+			"value": "Set this to a mac address(es) to be validated",
+			"type": "default"
+		},
+		{
+			"key": "DEVICE_MODEL",
+			"value": "Set this to a valid device model name",
+			"type": "default"
+		},
+		{
+			"key": "DEVICE_ID",
+			"value": "Set this to a valid device id",
+			"type": "default"
+		},
+		{
+			"key": "APPLICATION_ID",
+			"value": "Set this to a valid user's application id",
+			"type": "default"
+		},
+		{
 			"key": "_extensions",
+			"value": ""
+		},
+		{
+			"key": "_members.id",
+			"value": "",
+			"type": "default"
+		},
+		{
+			"key": "_members.personId",
+			"value": "",
+			"type": "default"
+		},
+		{
+			"key": "_members.workspaceId",
+			"value": "",
+			"type": "default"
+		},
+		{
+			"key": "_jobId",
 			"value": ""
 		}
 	]
