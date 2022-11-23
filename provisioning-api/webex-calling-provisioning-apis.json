@@ -2196,6 +2196,381 @@
 							"response": []
 						}
 					]
+				},
+				{
+					"name": "Move Numbers",
+					"item": [
+						{
+							"name": "List Manage Numbers Jobs",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Expected status code: 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{WEBEX_API_URL}}/telephony/config/jobs/numbers/manageNumbers",
+									"host": [
+										"{{WEBEX_API_URL}}"
+									],
+									"path": [
+										"telephony",
+										"config",
+										"jobs",
+										"numbers",
+										"manageNumbers"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Initiate Manage Numbers Job",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Expected status code: 202\", function () {",
+											"    pm.response.to.have.status(202);",
+											"});",
+											"",
+											"let res = pm.response.json();",
+											"",
+											"pm.collectionVariables.set(\"_jobId\", res.id);",
+											"",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"operation\": \"MOVE\",\n    \"targetLocationId\": {{TARGET_LOCATION}} ,\n    \"numberList\": [{\n        \"locationId\": {{_locationId}}, \n        \"numbers\": [{{NUMBER_TO_MOVE}}]\n    }]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{WEBEX_API_URL}}/telephony/config/jobs/numbers/manageNumbers",
+									"host": [
+										"{{WEBEX_API_URL}}"
+									],
+									"path": [
+										"telephony",
+										"config",
+										"jobs",
+										"numbers",
+										"manageNumbers"
+									]
+								},
+								"description": "The phone numbers should be an unassigned numbers. Both source and target location should have the same PSTN Connection."
+							},
+							"response": []
+						},
+						{
+							"name": "Pause Manage Numbers Job",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Expected status code: 204\", function () {",
+											"    pm.response.to.have.status(204);",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"operation\": \"MOVE\",\n    \"targetLocationId\": \"Y2lzY29zcGFyazovL3VzL0xPQ0FUSU9OL2Y1OTc5NzE2LWVlZjItNDkxYS1iZmU5LWYwMWIwZGJjYzU2ZQ\",\n    \"numberList\": [{\n        \"locationId\": \"Y2lzY29zcGFyazovL3VzL0xPQ0FUSU9OLzAxOTRmMGVmLTQ0OGMtNGI5MS1hNjVlLTFhN2VmYzYwYzk3ZQ\",\n        \"numbers\": [\"+17184275806\"]\n    }]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{WEBEX_API_URL}}/telephony/config/jobs/numbers/manageNumbers/{{_jobId}}/actions/pause/invoke",
+									"host": [
+										"{{WEBEX_API_URL}}"
+									],
+									"path": [
+										"telephony",
+										"config",
+										"jobs",
+										"numbers",
+										"manageNumbers",
+										"{{_jobId}}",
+										"actions",
+										"pause",
+										"invoke"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Resume Manage Numbers Job",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Expected status code: 204\", function () {",
+											"    pm.response.to.have.status(204);",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"operation\": \"MOVE\",\n    \"targetLocationId\": \"Y2lzY29zcGFyazovL3VzL0xPQ0FUSU9OL2Y1OTc5NzE2LWVlZjItNDkxYS1iZmU5LWYwMWIwZGJjYzU2ZQ\",\n    \"numberList\": [{\n        \"locationId\": \"Y2lzY29zcGFyazovL3VzL0xPQ0FUSU9OLzAxOTRmMGVmLTQ0OGMtNGI5MS1hNjVlLTFhN2VmYzYwYzk3ZQ\",\n        \"numbers\": [\"+17184275806\"]\n    }]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{WEBEX_API_URL}}/telephony/config/jobs/numbers/manageNumbers/{{_jobId}}/actions/resume/invoke",
+									"host": [
+										"{{WEBEX_API_URL}}"
+									],
+									"path": [
+										"telephony",
+										"config",
+										"jobs",
+										"numbers",
+										"manageNumbers",
+										"{{_jobId}}",
+										"actions",
+										"resume",
+										"invoke"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Abandon Manage Numbers Job",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Expected status code: 204\", function () {",
+											"    pm.response.to.have.status(204);",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"operation\": \"MOVE\",\n    \"targetLocationId\": \"Y2lzY29zcGFyazovL3VzL0xPQ0FUSU9OL2Y1OTc5NzE2LWVlZjItNDkxYS1iZmU5LWYwMWIwZGJjYzU2ZQ\",\n    \"numberList\": [{\n        \"locationId\": \"Y2lzY29zcGFyazovL3VzL0xPQ0FUSU9OLzAxOTRmMGVmLTQ0OGMtNGI5MS1hNjVlLTFhN2VmYzYwYzk3ZQ\",\n        \"numbers\": [\"+17184275806\"]\n    }]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{WEBEX_API_URL}}/telephony/config/jobs/numbers/manageNumbers/{{_jobId}}/actions/abandon/invoke",
+									"host": [
+										"{{WEBEX_API_URL}}"
+									],
+									"path": [
+										"telephony",
+										"config",
+										"jobs",
+										"numbers",
+										"manageNumbers",
+										"{{_jobId}}",
+										"actions",
+										"abandon",
+										"invoke"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Retrieve Manage Numbers Job Details",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Expected status code: 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{WEBEX_API_URL}}/telephony/config/jobs/numbers/manageNumbers/{{_jobId}}",
+									"host": [
+										"{{WEBEX_API_URL}}"
+									],
+									"path": [
+										"telephony",
+										"config",
+										"jobs",
+										"numbers",
+										"manageNumbers",
+										"{{_jobId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Retrieve Manage Numbers Job Error Details",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Expected status code: 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{WEBEX_API_URL}}/telephony/config/jobs/numbers/manageNumbers/{{_jobId}}/errors",
+									"host": [
+										"{{WEBEX_API_URL}}"
+									],
+									"path": [
+										"telephony",
+										"config",
+										"jobs",
+										"numbers",
+										"manageNumbers",
+										"{{_jobId}}",
+										"errors"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"auth": {
+						"type": "bearer",
+						"bearer": [
+							{
+								"key": "token",
+								"value": "{{WEBEX_TOKEN}}",
+								"type": "string"
+							}
+						]
+					},
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					]
 				}
 			]
 		},
@@ -3906,6 +4281,16 @@
 		{
 			"key": "_jobId",
 			"value": ""
+		},
+		{
+			"key": "NUMBER_TO_MOVE",
+			"value": "Set this to a valid unassigned phone numner to be moved.",
+			"type": "string"
+		},
+		{
+			"key": "TARGET_LOCATION",
+			"value": "Set this to a valid location id to which the number is moved.",
+			"type": "string"
 		}
 	]
 }
