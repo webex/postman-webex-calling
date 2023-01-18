@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "1fc30fe5-e199-4a05-ad07-02118f05560e",
+		"_postman_id": "90f31588-4152-42ef-a705-4b3e1cc33c8f",
 		"name": "Webex Calling Provisioning APIs",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -1003,6 +1003,110 @@
 												"locations",
 												"{{LOCATION_ID}}",
 												"privateNetworkConnect"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Receptionist Contact Directory",
+							"item": [
+								{
+									"name": "Create Receptionist Contact Directory",
+									"protocolProfileBehavior": {
+										"disabledSystemHeaders": {}
+									},
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"name\": \"test_receptionist\",\n    \"contacts\": [\n        {\n            \"personId\": \"{{PERSON_ID}}\"\n        }\n    ]\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{WEBEX_API_URL}}/telephony/config/locations/{{LOCATIONID_FOR_RECEPTIONIST}}/receptionistContacts/directories",
+											"host": [
+												"{{WEBEX_API_URL}}"
+											],
+											"path": [
+												"telephony",
+												"config",
+												"locations",
+												"{{LOCATIONID_FOR_RECEPTIONIST}}",
+												"receptionistContacts",
+												"directories"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Get Receptionist Contact Directories",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});",
+													"",
+													"let response = pm.response.json();",
+													"pm.collectionVariables.set(\"_directory.id\", response.directories[0].id);",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{WEBEX_API_URL}}/telephony/config/locations/{{LOCATIONID_FOR_RECEPTIONIST}}/receptionistContacts/directories",
+											"host": [
+												"{{WEBEX_API_URL}}"
+											],
+											"path": [
+												"telephony",
+												"config",
+												"locations",
+												"{{LOCATIONID_FOR_RECEPTIONIST}}",
+												"receptionistContacts",
+												"directories"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Delete Receptionist Contact Directory",
+									"protocolProfileBehavior": {
+										"disabledSystemHeaders": {}
+									},
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{WEBEX_API_URL}}/telephony/config/locations/{{LOCATIONID_FOR_RECEPTIONIST}}/receptionistContacts/directories/{{_directory.id}}",
+											"host": [
+												"{{WEBEX_API_URL}}"
+											],
+											"path": [
+												"telephony",
+												"config",
+												"locations",
+												"{{LOCATIONID_FOR_RECEPTIONIST}}",
+												"receptionistContacts",
+												"directories",
+												"{{_directory.id}}"
 											]
 										}
 									},
@@ -3885,6 +3989,11 @@
 			"type": "default"
 		},
 		{
+			"key": "LOCATIONID_FOR_RECEPTIONIST",
+			"value": "Set this to a valid location Id for receptionist contact directory",
+			"type": "default"
+		},
+		{
 			"key": "_extensions",
 			"value": ""
 		},
@@ -3906,6 +4015,11 @@
 		{
 			"key": "_jobId",
 			"value": ""
+		},
+		{
+			"key": "_directory.id",
+			"value": "Auto set by Get Receptionist Contact Directories",
+			"type": "default"
 		}
 	]
 }
