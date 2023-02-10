@@ -1,10 +1,171 @@
 {
 	"info": {
-		"_postman_id": "90f31588-4152-42ef-a705-4b3e1cc33c8f",
+		"_postman_id": "9bfbb537-5d0d-45ad-8702-cb7731b03100",
 		"name": "Webex Calling Provisioning APIs",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "13457826"
 	},
 	"item": [
+		{
+			"name": "Locations",
+			"item": [
+				{
+					"name": "Create Location",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Expected status code: 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"let response = pm.response.json();",
+									"pm.collectionVariables.set(\"_locationId\", response.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Denver\",\n  \"timeZone\": \"America/Chicago\",\n  \"announcementLanguage\": \"fr_fr\",\n  \"preferredLanguage\": \"en_us\",\n  \"address\": {\n    \"address1\": \"123 Some St.\",\n    \"address2\": \"Suite 456\",\n    \"city\": \"Supercity\",\n    \"state\": \"CO\",\n    \"postalCode\": \"12345\",\n    \"country\": \"US\"\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{WEBEX_API_URL}}/locations",
+							"host": [
+								"{{WEBEX_API_URL}}"
+							],
+							"path": [
+								"locations"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Location List",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Expected status code: 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{WEBEX_API_URL}}/locations",
+							"host": [
+								"{{WEBEX_API_URL}}"
+							],
+							"path": [
+								"locations"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "Denver",
+									"disabled": true
+								},
+								{
+									"key": "max",
+									"value": "10",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Location",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Expected status code: 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{WEBEX_API_URL}}/locations/{{_locationId}}",
+							"host": [
+								"{{WEBEX_API_URL}}"
+							],
+							"path": [
+								"locations",
+								"{{_locationId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Modify Location",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Expected status code: 204\", function () {",
+									"    pm.response.to.have.status(204);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Denver-2\",\n  \"timeZone\": \"America/Chicago\",\n  \"announcementLanguage\": \"fr_fr\",\n  \"preferredLanguage\": \"en_us\",\n  \"address\": {\n    \"address1\": \"123 Some St.\",\n    \"address2\": \"Suite 456\",\n    \"city\": \"Supercity\",\n    \"state\": \"CO\",\n    \"postalCode\": \"12345\",\n    \"country\": \"US\"\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{WEBEX_API_URL}}/locations/{{_locationId}}",
+							"host": [
+								"{{WEBEX_API_URL}}"
+							],
+							"path": [
+								"locations",
+								"{{_locationId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
 		{
 			"name": "Webex Calling Organization Settings",
 			"item": [
@@ -1107,6 +1268,86 @@
 												"receptionistContacts",
 												"directories",
 												"{{_directory.id}}"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Additional Settings",
+							"item": [
+								{
+									"name": "Get Location",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Expected status code: 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{WEBEX_API_URL}}/telephony/config/locations/{{_locationId}}",
+											"host": [
+												"{{WEBEX_API_URL}}"
+											],
+											"path": [
+												"telephony",
+												"config",
+												"locations",
+												"{{_locationId}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Modify Location",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Expected status code: 204\", function () {",
+													"    pm.response.to.have.status(204);",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"announcementLanguage\": \"fr_fr\",\n  \"outsideDialDigit\": \"12\",\n  \"routingPrefix\": \"2\",\n  \"callingLineId\": {\n    \"name\": \"Denver Incoming\",\n    \"phoneNumber\": \"+12145555698\"\n  },\n  \"connection\": {\n    \"type\": \"TRUNK\",\n    \"id\": \"Y2lzY29zcGFyazovL3VzL1RSVU5LL2QzMDliOTk0LTI3YjUtNDMwZC04N2I1LTMyZGVmYWNjZDY4Mg\"\n  },\n  \"externalCallerIdName\": \"Big Corp-Denver\",\n  \"pAccessNetworkInfo\": \"Rcdn\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{WEBEX_API_URL}}/telephony/config/locations/{{_locationId}}",
+											"host": [
+												"{{WEBEX_API_URL}}"
+											],
+											"path": [
+												"telephony",
+												"config",
+												"locations",
+												"{{_locationId}}"
 											]
 										}
 									},
@@ -4020,6 +4261,10 @@
 			"key": "_directory.id",
 			"value": "Auto set by Get Receptionist Contact Directories",
 			"type": "default"
+		},
+		{
+			"key": "_locationId",
+			"value": ""
 		}
 	]
 }
