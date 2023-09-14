@@ -3982,6 +3982,264 @@
 							"response": []
 						}
 					]
+				},
+                {
+					"name": "Music On Hold",
+					"item": [
+						{
+							"name": "Upload the Binary file",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Expected status code: 201\", function () {",
+											"    if (pm.response.code == 403)  {",
+											"        throw new Error(\"Got status code 403. Ensure your auth token contains spark-admin:telephony_config_write scope.\");",
+											"    }",
+											"    pm.response.to.have.status(201);",
+											"});",
+											"",
+											"let response = pm.response.json();",
+											"pm.collectionVariables.set(\"_announcementId\", response.id);",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "file",
+											"type": "file",
+											"src": []
+										},
+										{
+											"key": "name",
+											"value": "MOHFile",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{WEBEX_API_URL}}/telephony/config/locations/{{_locationId}}/announcements",
+									"host": [
+										"{{WEBEX_API_URL}}"
+									],
+									"path": [
+										"telephony",
+										"config",
+										"locations",
+										"{{_locationId}}",
+										"announcements"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get User Music On Hold",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Expected status code: 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{WEBEX_API_URL}}/telephony/config/people/{{PERSON_ID}}/musicOnHold",
+									"host": [
+										"{{WEBEX_API_URL}}"
+									],
+									"path": [
+										"telephony",
+										"config",
+										"people",
+										"{{PERSON_ID}}",
+										"musicOnHold"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update User Music On Hold with Custom Greeting",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Expected status code: 204\", function () {",
+											"    pm.response.to.have.status(204);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"audioEnabled\": true,\n    \"greeting\": \"CUSTOM\",\n    \"audioAnnouncementFile\": {\n        \"id\": \"{{_announcementId}}\"\n    }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{WEBEX_API_URL}}/telephony/config/people/{{PERSON_ID}}/musicOnHold",
+									"host": [
+										"{{WEBEX_API_URL}}"
+									],
+									"path": [
+										"telephony",
+										"config",
+										"people",
+										"{{PERSON_ID}}",
+										"musicOnHold"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get User Music On Hold after modifying",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Expected status code: 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{WEBEX_API_URL}}/telephony/config/people/{{PERSON_ID}}/musicOnHold",
+									"host": [
+										"{{WEBEX_API_URL}}"
+									],
+									"path": [
+										"telephony",
+										"config",
+										"people",
+										"{{PERSON_ID}}",
+										"musicOnHold"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update User Music On Hold with Default Greeting",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Expected status code: 204\", function () {",
+											"    if (pm.response.code == 403)  {",
+											"        throw new Error(\"Got status code 403. Ensure your auth token contains spark-admin:telephony_config_write scope.\");",
+											"    }",
+											"    pm.response.to.have.status(204);",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"audioEnabled\": true,\n    \"greeting\": \"DEFAULT\",\n    \"audioAnnouncementFile\": null\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{WEBEX_API_URL}}/telephony/config/people/{{PERSON_ID}}/musicOnHold",
+									"host": [
+										"{{WEBEX_API_URL}}"
+									],
+									"path": [
+										"telephony",
+										"config",
+										"people",
+										"{{PERSON_ID}}",
+										"musicOnHold"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Announcement Details",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Expected status code: 204\", function () {",
+											"    if (pm.response.code == 403)  {",
+											"        throw new Error(\"Got status code 403. Ensure your auth token contains spark-admin:telephony_config_write scope.\");",
+											"    }",
+											"    pm.response.to.have.status(204);",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{WEBEX_API_URL}}/telephony/config/locations/{{_locationId}}/announcements/{{_announcementId}}",
+									"host": [
+										"{{WEBEX_API_URL}}"
+									],
+									"path": [
+										"telephony",
+										"config",
+										"locations",
+										"{{_locationId}}",
+										"announcements",
+										"{{_announcementId}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
 				}
 			]
 		},
@@ -4103,6 +4361,264 @@
 										"workspaces",
 										"{{_members.workspaceId}}",
 										"devices"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+                {
+					"name": "Music On Hold",
+					"item": [
+						{
+							"name": "Upload the Binary file",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Expected status code: 201\", function () {",
+											"    if (pm.response.code == 403)  {",
+											"        throw new Error(\"Got status code 403. Ensure your auth token contains spark-admin:telephony_config_write scope.\");",
+											"    }",
+											"    pm.response.to.have.status(201);",
+											"});",
+											"",
+											"let response = pm.response.json();",
+											"pm.collectionVariables.set(\"_announcementId\", response.id);",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "file",
+											"type": "file",
+											"src": []
+										},
+										{
+											"key": "name",
+											"value": "MOHFile",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{WEBEX_API_URL}}/telephony/config/locations/{{_locationId}}/announcements",
+									"host": [
+										"{{WEBEX_API_URL}}"
+									],
+									"path": [
+										"telephony",
+										"config",
+										"locations",
+										"{{_locationId}}",
+										"announcements"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Workspace Music On Hold",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Expected status code: 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{WEBEX_API_URL}}/telephony/config/workspaces/{{WORKSPACE_ID}}/musicOnHold",
+									"host": [
+										"{{WEBEX_API_URL}}"
+									],
+									"path": [
+										"telephony",
+										"config",
+										"workspaces",
+										"{{WORKSPACE_ID}}",
+										"musicOnHold"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Workspace Music On Hold with Custom Greeting",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Expected status code: 204\", function () {",
+											"    pm.response.to.have.status(204);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"audioEnabled\": true,\n    \"greeting\": \"CUSTOM\",\n    \"audioAnnouncementFile\": {\n        \"id\": \"{{_announcementId}}\"\n    }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{WEBEX_API_URL}}/telephony/config/workspaces/{{WORKSPACE_ID}}/musicOnHold",
+									"host": [
+										"{{WEBEX_API_URL}}"
+									],
+									"path": [
+										"telephony",
+										"config",
+										"workspaces",
+										"{{WORKSPACE_ID}}",
+										"musicOnHold"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Workspace Music On Hold after modifying",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Expected status code: 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{WEBEX_API_URL}}/telephony/config/workspaces/{{WORKSPACE_ID}}/musicOnHold",
+									"host": [
+										"{{WEBEX_API_URL}}"
+									],
+									"path": [
+										"telephony",
+										"config",
+										"workspaces",
+										"{{WORKSPACE_ID}}",
+										"musicOnHold"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Workspace Music On Hold with Default Greeting",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Expected status code: 204\", function () {",
+											"    if (pm.response.code == 403)  {",
+											"        throw new Error(\"Got status code 403. Ensure your auth token contains spark-admin:telephony_config_write scope.\");",
+											"    }",
+											"    pm.response.to.have.status(204);",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"audioEnabled\": true,\n    \"greeting\": \"DEFAULT\",\n    \"audioAnnouncementFile\": null\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{WEBEX_API_URL}}/telephony/config/workspaces/{{WORKSPACE_ID}}/musicOnHold",
+									"host": [
+										"{{WEBEX_API_URL}}"
+									],
+									"path": [
+										"telephony",
+										"config",
+										"workspaces",
+										"{{WORKSPACE_ID}}",
+										"musicOnHold"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Announcement Details",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Expected status code: 204\", function () {",
+											"    if (pm.response.code == 403)  {",
+											"        throw new Error(\"Got status code 403. Ensure your auth token contains spark-admin:telephony_config_write scope.\");",
+											"    }",
+											"    pm.response.to.have.status(204);",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{WEBEX_API_URL}}/telephony/config/locations/{{_locationId}}/announcements/{{_announcementId}}",
+									"host": [
+										"{{WEBEX_API_URL}}"
+									],
+									"path": [
+										"telephony",
+										"config",
+										"locations",
+										"{{_locationId}}",
+										"announcements",
+										"{{_announcementId}}"
 									]
 								}
 							},
@@ -4265,6 +4781,10 @@
 		{
 			"key": "_locationId",
 			"value": ""
+		},
+        {
+			"key": "_announcementId",
+			"value": "Auto set by Create Announcement Tests Javascript"
 		}
 	]
 }
