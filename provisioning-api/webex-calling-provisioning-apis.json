@@ -4096,7 +4096,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"audioEnabled\": true,\n    \"greeting\": \"CUSTOM\",\n    \"audioAnnouncementFile\": {\n        \"id\": \"{{_announcementId}}\"\n    }\n}",
+									"raw": "{\n    \"mohEnabled\": true,\n    \"greeting\": \"CUSTOM\",\n    \"audioAnnouncementFile\": {\n        \"id\": \"{{_announcementId}}\"\n    }\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -4177,7 +4177,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"audioEnabled\": true,\n    \"greeting\": \"DEFAULT\",\n    \"audioAnnouncementFile\": null\n}",
+									"raw": "{\n    \"mohEnabled\": true,\n    \"greeting\": \"DEFAULT\",\n    \"audioAnnouncementFile\": null\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -4481,7 +4481,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"audioEnabled\": true,\n    \"greeting\": \"CUSTOM\",\n    \"audioAnnouncementFile\": {\n        \"id\": \"{{_announcementId}}\"\n    }\n}",
+									"raw": "{\n    \"mohEnabled\": true,\n    \"greeting\": \"CUSTOM\",\n    \"audioAnnouncementFile\": {\n        \"id\": \"{{_announcementId}}\"\n    }\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -4562,7 +4562,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"audioEnabled\": true,\n    \"greeting\": \"DEFAULT\",\n    \"audioAnnouncementFile\": null\n}",
+									"raw": "{\n    \"mohEnabled\": true,\n    \"greeting\": \"DEFAULT\",\n    \"audioAnnouncementFile\": null\n}",
 									"options": {
 										"raw": {
 											"language": "json"
